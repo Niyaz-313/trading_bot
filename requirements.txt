@@ -1,0 +1,25 @@
+# Основные зависимости для торгового бота
+
+# Брокерский API - T-Invest (Т-Инвестиции)
+# Официальный SDK устанавливается из GitHub:
+# pip install git+https://github.com/Tinkoff/invest-python.git
+# После установки пакет называется tinkoff-investments
+# Импорт: from tinkoff.invest import Client
+grpcio>=1.39.0,<2.0.0
+protobuf>=6.0.0  # Для Python 3.14 нужна версия 6.x (SDK требует <5.0, но работает с 6.x)
+cachetools>=5.2.0,<6.0.0
+
+# Примечание про SDK:
+# Мы НЕ фиксируем tinkoff-investments тут, чтобы pip не попытался понизить protobuf<5 (на Python 3.14 это ломает импорт).
+# Установка SDK — по инструкции в `ИНСТРУКЦИЯ_УСТАНОВКИ_SDK.md`.
+
+# Технический анализ
+pandas>=2.0.0
+numpy>=1.24.0
+tzdata>=2022.7  # нужно для zoneinfo (Europe/Moscow) на Windows
+
+# Telegram бот
+python-telegram-bot>=20.0
+
+# Утилиты
+python-dotenv>=1.0.0

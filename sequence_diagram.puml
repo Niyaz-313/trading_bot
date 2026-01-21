@@ -1,0 +1,258 @@
+@startuml
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam maxmessagesize 60
+
+participant "Владелец/Субаккаунт" as User
+participant "НКМТ" as NKMT
+participant "Pcat" as Pcat
+participant "ВетИС.API" as API
+participant "Меркурий" as Mercury
+participant "СТП Меркурий" as STP
+
+== INT.01: Создание и обновление номенклатуры владельца GTIN ==
+
+activate User
+User -> NKMT: Инициация обновления данных
+activate NKMT
+
+NKMT -> API: Запрос с изменениями GTIN
+activate API
+API -> NKMT: Передача идентификатора запроса
+deactivate API
+
+API -> Mercury: Изменения GTIN
+activate Mercury
+
+Mercury -> Pcat: Запрос данных карточки по полученным GTIN
+activate Pcat
+Pcat -> NKMT: Ретрансляция запроса от Меркурий
+NKMT -> Pcat: Передача данных карточки
+Pcat -> Mercury: Ретрансляция данных карточки
+deactivate Pcat
+
+Mercury -> Mercury: Создание/Обновление карточки (и владельца, и субаккаунтов)
+Mercury -> API: Передача статуса по результатам обработки данных
+deactivate Mercury
+API -> NKMT: Передача статуса по результатам обработки данных
+deactivate API
+
+loop [Запрос статуса результата]
+    NKMT -> API: Запрос статуса
+    API -> NKMT: Статус результата обработки запроса (+ тело ошибки при наличии)
+end
+
+== INT.02: Синхронизация номенклатуры с карточкой и валидация версий ==
+
+User -> NKMT: Инициация проверки версии
+activate NKMT
+
+NKMT -> API: Запрос проверки версий (передаются:ProductItem ID, UUID, ИНН влд, ИНН суб)
+activate API
+API -> NKMT: Передача идентификатора запроса
+deactivate API
+
+group Номенклатуры созданные на исторических данных.
+    note right of Mercury: Процесс валидации и синхронизации в статусе "модерация".
+    
+    API -> Mercury: Отправка сведений карточки с ProductItem ID (статус "модерация").
+    activate Mercury
+    
+    Mercury -> Mercury: Найдена карточка по ProductItem ID
+    
+    Mercury -> Pcat: Запрос данных карточки по полученным данным
+    activate Pcat
+    Pcat -> NKMT: Ретрансляция запроса от Меркурий
+    NKMT -> Pcat: Передача атрибутов карточки
+    Pcat -> Mercury: Ретрансляция атрибутов карточки
+    deactivate Pcat
+    
+    Mercury -> Mercury: Валидация данных (без блокировки, без синхронизации).
+    Mercury -> API: Результаты проверки + UUID
+    deactivate Mercury
+    API -> NKMT: Результаты проверки + UUID
+    
+    loop [Запрос статуса результата]
+        NKMT -> API: Запрос статуса
+        API -> NKMT: Статус результата обработки запроса (+ тело ошибки при наличии)
+    end
+    
+    NKMT -> NKMT: Обновление карточки на основе данных\nпосле валидации, повторная отправка на Модерацию,\nпока не перейдет в статус на подписание.
+    
+    group Процесс валидации и синхронизации в статусе "Подписан"
+        API -> Mercury: Отправка сведений карточки (статус "подписан").
+        activate Mercury
+        
+        Mercury -> Mercury: Найдена карточка по ProductItem ID
+        
+        Mercury -> Pcat: Запрос данных карточки по полученным данным
+        activate Pcat
+        Pcat -> NKMT: Ретрансляция запроса от Меркурий
+        NKMT -> Pcat: Передача атрибутов карточки
+        Pcat -> Mercury: Ретрансляция атрибутов карточки
+        deactivate Pcat
+        
+        Mercury -> Mercury: Перезапись карточки товара,\nУстановка признака синхронизации,\nБлокировка карточки
+        Mercury -> API: Принято без валидирования + UUID
+        deactivate Mercury
+        API -> NKMT: Принято без валидирования + UUID
+        
+        loop [Запрос статуса результата.]
+            NKMT -> API: Запрос статуса
+            API -> NKMT: Статус результата обработки запроса (+ тело ошибки при наличии)
+        end
+        
+        NKMT -> NKMT: Обновление карточки на основе данных\nпосле валидации, повторная отправка на Модерацию,\nпока не перейдет в статус на подписание.
+    end
+end
+
+group Номенклатуры созданные на Новых данных
+    note right of Mercury: Процесс валидации и синхронизации в статусе "модерация".
+    
+    API -> Mercury: Отправка сведений карточки с GTIN + ИНН (статус "модерация")
+    activate Mercury
+    
+    Mercury -> Mercury: Поиск по GTIN + ИНН-владельца
+    
+    alt [Одна карточка]
+        Mercury -> Mercury: Найдена одна карточка
+        Mercury -> Mercury: Продолжить работать с данной карточкой(ProductItem ID).\nПроцесс ведется по основному сценарию "Номенклатуры созданные на исторических данных"
+    else [Более одной карточки]
+        Mercury -> Mercury: Найдено более одной карточки товара
+        Mercury -> Mercury: Найденные карточки товара не синхронизируются, не блокируются.
+        Mercury -> Mercury: Создать для этой номенклатуры новую карточку товара(новый ProductItem ID).\nПроцесс ведется по основному сценарию "Номенклатуры созданные на Новых данных"
+        
+        Mercury -> Pcat: Запрос данных карточки по полученным данным
+        activate Pcat
+        Pcat -> NKMT: Ретрансляция запроса от Меркурий
+        NKMT -> Pcat: Передача атрибутов карточки
+        Pcat -> Mercury: Ретрансляция атрибутов карточки
+        deactivate Pcat
+        
+        Mercury -> Mercury: Валидация данных (Создание/обновление черновика,\nблокировка, С синхронизацией (Черновик-черновик)
+        
+        note right of Mercury: Если валидация не пройдена,\nтогда черновик не создается.
+        
+        Mercury -> API: Результаты проверки + UUID и ProductItem ID
+        deactivate Mercury
+        API -> NKMT: Результаты проверки + UUID и ProductItem ID
+        
+        alt [Был аварийный режим]
+            Mercury -> API: Результаты проверки + UUID и ProductItem ID
+            note right of Mercury: Если был аварийный режим, то возможно Валидирование номенклатуры.\nВ соответствии с процессами "Аварийного режима"
+        end
+        
+        loop [Запрос статуса результата]
+            NKMT -> API: Запрос статуса
+            API -> NKMT: Статус результата обработки запроса (+ тело ошибки при наличии)
+        end
+        
+        alt [Поиск номенклатуры субаккаунта в процессе Модерации]
+            API -> Mercury: Передача версии GTIN на проверку количества субаккаунтов
+            activate Mercury
+            
+            Mercury -> Mercury: Поиск всех номенклатур субаккаунтов
+            
+            alt [Одна номенклатура]
+                Mercury -> Mercury: Найдена одна номенклатура субаккаунта
+                Mercury -> Mercury: Продолжить валидирование данных
+                Mercury -> API: Результаты проверки
+            else [Более одной номенклатуры]
+                Mercury -> Mercury: Найдено более одной номенклатуры субаккаунта
+                Mercury -> STP: Обращение в СТП Меркурий.
+                activate STP
+                Mercury -> API: Уведомление о создании обращения в СТП + номер обращения.
+                deactivate STP
+            end
+            
+            loop [Запрос статуса результата]
+                NKMT -> API: Запрос статуса
+                API -> NKMT: Статус результата обработки запроса (+ тело ошибки при наличии)
+            end
+        end
+    end
+end
+
+== INT.03: Решение обращений в СТП ==
+
+User -> STP: Обращение о проблемах синхронизации
+activate STP
+
+STP -> Mercury: Запрос актуальных данных по GTIN
+activate Mercury
+
+Mercury -> Pcat: Отправка запроса в Pcat для получения сведений
+activate Pcat
+Pcat -> NKMT: Ретрансляция запроса от Меркурий
+NKMT -> Pcat: Предоставление актуальных данных
+Pcat -> Mercury: Ретрансляция актуальных данных
+deactivate Pcat
+
+Mercury -> Mercury: Создание/Обновление номенклатуры
+
+alt [Синхронизировано]
+    Mercury -> STP: Подтверждение Создания/обновления и синхронизации
+    note right of STP: [Найдено более одной номенклатуры]
+    Mercury -> STP: Обращение в СТП Меркурий
+    STP -> User: Проблема решена/Необходимо оставить только одну номенклатуру
+    deactivate STP
+end
+
+== INT.04: Получение атрибутов номенклатуры из Меркурий ==
+
+User -> NKMT: Создание карточки товара с ProductItem ID
+activate NKMT
+
+NKMT -> API: Запрос атрибутов по ProductItem ID
+activate API
+
+API -> Mercury: Запрос атрибутов по ProductItem ID
+activate Mercury
+
+Mercury -> Mercury: Поиск данных карточки
+Mercury -> API: Передача данных карточки
+deactivate Mercury
+
+API -> NKMT: Ретрансляция данных
+deactivate API
+
+NKMT -> NKMT: Заполнение карточки товара
+deactivate NKMT
+
+== INT.05: Обновление номенклатуры субаккаунтов при изменениях GTIN ==
+
+User -> NKMT: Инициация обработки изменений
+activate NKMT
+
+NKMT -> API: Передача сведений по изменениям (ИНН владельца, ИНН-субаккаунта, список GTIN)
+activate API
+API -> NKMT: Передача идентификатора запроса
+deactivate API
+
+API -> Mercury: Данные карточки (ИНН владельца, ИНН-субаккаунта, список GTIN)
+activate Mercury
+
+Mercury -> Mercury: Поиск измененных карточек субаккаунтов
+
+note right of Mercury: Исходим из того, что в списке ИНН-субаккаунтов только актуальные данные.\nКоторые были, но пропали- блокируем.\nКоторых не было - создаем.
+
+Mercury -> Mercury: Создание/обновление/блокирование номенклатуры субаккаунта\nпо найденной карточке Владельца
+
+Mercury -> API: Передача статуса по результатам обработки данных
+deactivate Mercury
+API -> NKMT: Передача статуса по результатам обработки данных
+deactivate API
+
+loop [Запрос статуса результата]
+    NKMT -> API: Запрос статуса
+    API -> NKMT: Статус результата обработки запроса (+ тело ошибки при наличии)
+end
+
+deactivate NKMT
+deactivate User
+
+@enduml
+
+
