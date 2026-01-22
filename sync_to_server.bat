@@ -20,7 +20,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo [1/3] Проверка изменений в Git...
+echo [1/4] Проверка изменений в Git...
 git status --short
 if errorlevel 1 (
     echo ОШИБКА: Не удалось проверить статус Git
@@ -29,7 +29,7 @@ if errorlevel 1 (
 )
 
 echo.
-echo [2/3] Добавление изменений в Git...
+echo [2/4] Добавление изменений в Git...
 git add .
 if errorlevel 1 (
     echo ОШИБКА: Не удалось добавить файлы в Git
@@ -37,21 +37,53 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo.
-echo [3/3] Отправка изменений на сервер (GitHub/GitLab)...
 set "COMMIT_MSG=Auto-sync: %date% %time%"
 git commit -m "%COMMIT_MSG%"
 if errorlevel 1 (
     echo Предупреждение: Нет изменений для коммита или ошибка коммита
 )
 
+echo.
+echo [3/4] Получение изменений с сервера (GitHub/GitLab)...
+git fetch origin
+if errorlevel 1 (
+    echo Предупреждение: Не удалось получить изменения с сервера
+    echo Продолжаем попытку отправки...
+)
+
+REM Проверяем, есть ли изменения на сервере
+git status -sb | findstr /C:"behind" >nul
+if not errorlevel 1 (
+    echo Обнаружены изменения на сервере, выполняем pull...
+    git pull origin main --no-edit
+    if errorlevel 1 (
+        echo ОШИБКА: Не удалось объединить изменения с сервера
+        echo Возможны конфликты. Разрешите их вручную:
+        echo   1. Откройте репозиторий в Git GUI или IDE
+        echo   2. Разрешите конфликты
+        echo   3. Выполните: git add . ^&^& git commit -m "Merge conflicts resolved"
+        echo   4. Запустите этот скрипт снова
+        pause
+        exit /b 1
+    )
+    echo Изменения с сервера успешно объединены
+) else (
+    echo Локальная ветка синхронизирована с сервером
+)
+
+echo.
+echo [4/4] Отправка изменений на сервер (GitHub/GitLab)...
 git push origin main
 if errorlevel 1 (
     echo ОШИБКА: Не удалось отправить изменения на сервер
-    echo Проверьте:
-    echo   1. Настроен ли remote origin
-    echo   2. Есть ли доступ к репозиторию
-    echo   3. Правильность URL репозитория
+    echo Возможные причины:
+    echo   1. На сервере есть новые изменения - попробуйте запустить скрипт снова
+    echo   2. Нет доступа к репозиторию - проверьте логин/пароль
+    echo   3. Неправильный URL репозитория - проверьте remote origin
+    echo.
+    echo Для принудительной отправки (ОПАСНО!):
+    echo   git push origin main --force
+    echo   (используйте только если уверены, что хотите перезаписать удаленные изменения)
     pause
     exit /b 1
 )
