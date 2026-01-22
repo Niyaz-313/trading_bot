@@ -118,3 +118,4 @@ sudo journalctl -u trading-bot.service -f
 
 **Подробные инструкции см. в РАЗВЕРТЫВАНИЕ_НА_СЕРВЕРЕ.md**
 
+

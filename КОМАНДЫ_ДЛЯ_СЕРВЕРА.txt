@@ -70,3 +70,4 @@ python3 -c "from broker_api import BrokerAPI; b = BrokerAPI(paper_trading=True);
 - IPv4 адрес указывается БЕЗ квадратных скобок (в отличие от IPv6)
 - Если репозиторий приватный, настройте авторизацию (см. ПОДКЛЮЧЕНИЕ_GIT_К_СЕРВЕРУ.md)
 
+

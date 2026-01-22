@@ -1,0 +1,46 @@
+========================================
+ИСПРАВЛЕНИЕ ПРОБЛЕМЫ С GIT REMOTE
+========================================
+
+ПРОБЛЕМА:
+git fetch пытается использовать SSH, но на сервере настроен HTTPS
+
+РЕШЕНИЕ:
+========================================
+
+1. Проверить текущий remote URL:
+
+   cd /home/botuser/trading_bot/trading_bot
+   git remote -v
+
+2. Если видите SSH URL (git@github.com:...), 
+   измените на HTTPS:
+
+   git remote set-url origin https://github.com/Niyaz-313/trading_bot.git
+
+3. Проверьте еще раз:
+
+   git remote -v
+
+   Должно быть:
+   origin  https://github.com/Niyaz-313/trading_bot.git (fetch)
+   origin  https://github.com/Niyaz-313/trading_bot.git (push)
+
+4. Теперь скрипт должен работать:
+
+   ./server_update.sh
+
+========================================
+АЛЬТЕРНАТИВА: Использовать git pull напрямую
+========================================
+
+Если проблема сохраняется, можно обновлять вручную:
+
+   cd /home/botuser/trading_bot/trading_bot
+   git pull origin main
+   source venv/bin/activate
+   pip install -r requirements.txt
+   sudo systemctl restart trading-bot.service
+
+========================================
+

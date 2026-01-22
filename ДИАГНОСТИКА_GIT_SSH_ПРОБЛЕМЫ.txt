@@ -1,0 +1,78 @@
+========================================
+ДИАГНОСТИКА И ИСПРАВЛЕНИЕ ПРОБЛЕМЫ GIT SSH
+========================================
+
+ПРОБЛЕМА:
+git pull все еще пытается использовать SSH, даже после изменения remote URL
+
+ВОЗМОЖНЫЕ ПРИЧИНЫ:
+========================================
+
+1. Глобальная настройка Git переопределяет URL
+2. Кэш Git
+3. Старая версия скрипта
+
+РЕШЕНИЕ НА СЕРВЕРЕ:
+========================================
+
+1. Проверьте remote URL:
+   cd /home/botuser/trading_bot/trading_bot
+   git remote -v
+
+2. Если не HTTPS, исправьте:
+   git remote set-url origin https://github.com/Niyaz-313/trading_bot.git
+
+3. Проверьте глобальные настройки Git:
+   git config --global --list | grep url
+   
+   Если видите что-то вроде:
+   url.ssh://git@github.com/.insteadof=https://github.com/
+   
+   Удалите это правило:
+   git config --global --unset url.ssh://git@github.com/.insteadof
+
+4. Очистите кэш Git (если нужно):
+   git config --global --unset credential.helper
+   git config --system --unset credential.helper
+
+5. Проверьте конфигурацию репозитория:
+   cat .git/config | grep -A 5 "\[remote"
+   
+   Должно быть:
+   [remote "origin"]
+       url = https://github.com/Niyaz-313/trading_bot.git
+       fetch = +refs/heads/*:refs/remotes/origin/*
+
+6. Попробуйте git pull напрямую:
+   git pull origin main
+
+7. Если все еще ошибка, попробуйте с явным URL:
+   git pull https://github.com/Niyaz-313/trading_bot.git main
+
+========================================
+ПОЛНАЯ ПЕРЕУСТАНОВКА REMOTE
+========================================
+
+Если ничего не помогает:
+
+cd /home/botuser/trading_bot/trading_bot
+git remote remove origin
+git remote add origin https://github.com/Niyaz-313/trading_bot.git
+git remote -v
+git pull origin main
+
+========================================
+ПОЛУЧИТЬ ОБНОВЛЕННЫЙ СКРИПТ
+========================================
+
+После исправления remote URL, получите обновленный скрипт:
+
+cd /home/botuser/trading_bot/trading_bot
+git pull origin main
+chmod +x server_update.sh
+./server_update.sh
+
+Обновленный скрипт автоматически проверяет и исправляет remote URL.
+
+========================================
+

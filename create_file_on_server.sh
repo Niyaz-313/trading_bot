@@ -33,3 +33,4 @@ echo ""
 echo "Первые 10 строк файла:"
 head -n 10 main.py
 
+

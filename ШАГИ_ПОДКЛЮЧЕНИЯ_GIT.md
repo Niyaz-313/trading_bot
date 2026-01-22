@@ -98,7 +98,7 @@ pip install -r requirements.txt
 ```powershell
 # Скопируйте .env файл на сервер (замените YOUR_IPv4_ADDRESS)
 # Файл будет скопирован в /home/botuser/trading_bot/trading_bot/.env
-scp "C:\Users\karim\OneDrive\Рабочий стол\Bot\.env" botuser@YOUR_IPv4_ADDRESS:/home/botuser/trading_bot/trading_bot/.env
+scp "C:\Users\karim\OneDrive\Рабочий стол\Bot\.env" botuser@193.160.208.128:/home/botuser/trading_bot/trading_bot/.env
 # Пример: scp "C:\Users\karim\OneDrive\Рабочий стол\Bot\.env" botuser@192.168.1.100:/home/botuser/trading_bot/trading_bot/.env
 ```
 

@@ -22,10 +22,12 @@ git push origin main
 # Подключиться к серверу
 ssh botuser@YOUR_IPv4_ADDRESS
 
-# Перейти в директорию (проверьте правильный путь)
-cd ~/trading_bot
-# или
-cd ~/trading_bot/trading_bot
+# Перейти в директорию (ПРАВИЛЬНЫЙ ПУТЬ)
+cd /home/botuser/trading_bot/trading_bot
+
+# Если скрипта нет, получить его из Git
+git pull origin main
+chmod +x server_update.sh
 
 # Запустить обновление (автоматически перезапустит бота)
 ./server_update.sh
@@ -73,4 +75,9 @@ sudo journalctl -u trading-bot.service -n 50 | grep -i error
 # Запросите отчет в Telegram: /day 2026-01-22
 
 ========================================
+БЫСТРАЯ КОМАНДА (ВСЕ В ОДНОЙ СТРОКЕ)
+========================================
 
+cd /home/botuser/trading_bot/trading_bot && git pull origin main && chmod +x server_update.sh && ./server_update.sh
+
+========================================

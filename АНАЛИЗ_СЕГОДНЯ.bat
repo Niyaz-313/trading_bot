@@ -5,3 +5,4 @@ python analyze_today_full.py > analysis_output.txt 2>&1
 type analysis_output.txt
 pause
 
+

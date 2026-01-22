@@ -54,3 +54,4 @@ echo "" >> $LOG_FILE
 echo "Размер бэкапов:" >> $LOG_FILE
 du -sh $BACKUP_DIR >> $LOG_FILE
 
+

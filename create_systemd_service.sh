@@ -81,3 +81,4 @@ echo "Для просмотра логов:"
 echo "  sudo journalctl -u trading-bot.service -f"
 echo
 
+

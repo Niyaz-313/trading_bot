@@ -1,0 +1,47 @@
+========================================
+ИСПРАВЛЕНИЕ ПРОБЛЕМЫ С GIT REMOTE (SSH)
+========================================
+
+ПРОБЛЕМА:
+git pull пытается использовать SSH, но на сервере нет SSH ключей
+
+РЕШЕНИЕ НА СЕРВЕРЕ:
+========================================
+
+1. Подключитесь к серверу:
+   ssh botuser@YOUR_IPv4_ADDRESS
+
+2. Перейдите в директорию:
+   cd /home/botuser/trading_bot/trading_bot
+
+3. Проверьте текущий remote URL:
+   git remote -v
+
+4. Если видите SSH URL (git@github.com:...), 
+   измените на HTTPS:
+   git remote set-url origin https://github.com/Niyaz-313/trading_bot.git
+
+5. Проверьте еще раз:
+   git remote -v
+   
+   Должно быть:
+   origin  https://github.com/Niyaz-313/trading_bot.git (fetch)
+   origin  https://github.com/Niyaz-313/trading_bot.git (push)
+
+6. Теперь скрипт должен работать:
+   ./server_update.sh
+
+========================================
+АВТОМАТИЧЕСКОЕ ИСПРАВЛЕНИЕ
+========================================
+
+Обновленный скрипт server_update.sh теперь автоматически
+проверяет и исправляет remote URL с SSH на HTTPS.
+
+Просто получите обновленный скрипт:
+   git pull origin main
+   chmod +x server_update.sh
+   ./server_update.sh
+
+========================================
+
