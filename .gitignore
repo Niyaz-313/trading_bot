@@ -3,10 +3,11 @@
 .env.local
 .env.*.local
 
-# Logs
-*.log
-logs/
-trading_bot.log
+## Logs (tracked: we sync logs/audit to Git for analytics)
+# NOTE: this increases repo size. Use rotation on server.
+# *.log
+# logs/
+# trading_bot.log
 
 # Python
 __pycache__/
@@ -37,12 +38,12 @@ ENV/
 env.bak/
 venv.bak/
 
-# Audit logs and data
-audit_logs/
+# Audit logs and data (tracked: we sync audit to Git for analytics)
+# audit_logs/
 data_cache/
 state/
-*.csv
-*.json
+# *.csv
+# *.json
 !requirements.txt
 
 # IDE
