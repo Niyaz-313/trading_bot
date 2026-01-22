@@ -6676,3 +6676,799 @@ ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.i
 2026-01-23 02:12:09,637 - tinvest_api - WARNING - Инструмент PLTRUB_TOM недоступен для торговли (код 30079). Возможные причины: торговая сессия закрыта, инструмент приостановлен, или недоступен в sandbox.
 2026-01-23 02:12:09,638 - __main__ - ERROR - ❌ НЕ УДАЛОСЬ РАЗМЕСТИТЬ ЗАЯВКУ: PLTRUB_TOM, qty_lots=6, price=6299.00, reason=place_market_order вернул None
 2026-01-23 02:12:15,658 - tinvest_api - INFO - Позиции: найдено 1 (account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, sandbox=True); portfolio_shares_total=0.00, portfolio_positions=1
+2026-01-23 02:17:24,651 - tinvest_api - INFO - Позиции: найдено 1 (account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, sandbox=True); portfolio_shares_total=0.00, portfolio_positions=1
+2026-01-23 02:17:24,665 - __main__ - INFO - Проверка просадки от пика: пик=195094.27, текущая=193855.38, просадка=-0.64%, лимит=5.00%, allow_entries=True
+2026-01-23 02:17:26,481 - tinvest_api - INFO - Запрос данных для SBER с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:26,531 - tinvest_api - INFO - ✓ Получено 13 свечей для SBER
+2026-01-23 02:17:26,557 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SBER_15m.csv (2436 строк)
+2026-01-23 02:17:26,559 - tinvest_api - INFO - ✓ Получены исторические данные для SBER: 2436 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:28,179 - tinvest_api - INFO - Запрос данных для GAZP с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:28,220 - tinvest_api - INFO - ✓ Получено 13 свечей для GAZP
+2026-01-23 02:17:28,244 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_GAZP_15m.csv (2433 строк)
+2026-01-23 02:17:28,246 - tinvest_api - INFO - ✓ Получены исторические данные для GAZP: 2433 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:29,887 - tinvest_api - INFO - Запрос данных для YNDX с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:29,926 - tinvest_api - INFO - ✓ Получено 13 свечей для YNDX
+2026-01-23 02:17:29,952 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_YNDX_15m.csv (2434 строк)
+2026-01-23 02:17:29,954 - tinvest_api - INFO - ✓ Получены исторические данные для YNDX: 2434 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:31,584 - tinvest_api - INFO - Запрос данных для VTBR с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:31,632 - tinvest_api - INFO - ✓ Получено 13 свечей для VTBR
+2026-01-23 02:17:31,656 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_VTBR_15m.csv (2436 строк)
+2026-01-23 02:17:31,661 - tinvest_api - INFO - ✓ Получены исторические данные для VTBR: 2436 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:33,364 - tinvest_api - INFO - Запрос данных для MOEX с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:33,401 - tinvest_api - INFO - ✓ Получено 13 свечей для MOEX
+2026-01-23 02:17:33,426 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_MOEX_15m.csv (2389 строк)
+2026-01-23 02:17:33,428 - tinvest_api - INFO - ✓ Получены исторические данные для MOEX: 2389 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:35,044 - tinvest_api - INFO - Запрос данных для LKOH с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:35,085 - tinvest_api - INFO - ✓ Получено 13 свечей для LKOH
+2026-01-23 02:17:35,134 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_LKOH_15m.csv (2418 строк)
+2026-01-23 02:17:35,143 - tinvest_api - INFO - ✓ Получены исторические данные для LKOH: 2418 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:36,777 - tinvest_api - INFO - Запрос данных для ROSN с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:36,816 - tinvest_api - INFO - ✓ Получено 13 свечей для ROSN
+2026-01-23 02:17:36,836 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_ROSN_15m.csv (2424 строк)
+2026-01-23 02:17:36,839 - tinvest_api - INFO - ✓ Получены исторические данные для ROSN: 2424 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:38,627 - tinvest_api - INFO - Запрос данных для NVTK с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:38,678 - tinvest_api - INFO - ✓ Получено 13 свечей для NVTK
+2026-01-23 02:17:38,704 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_NVTK_15m.csv (2412 строк)
+2026-01-23 02:17:38,707 - tinvest_api - INFO - ✓ Получены исторические данные для NVTK: 2412 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:40,275 - tinvest_api - INFO - Запрос данных для GMKN с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:40,313 - tinvest_api - INFO - ✓ Получено 13 свечей для GMKN
+2026-01-23 02:17:40,337 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_GMKN_15m.csv (2401 строк)
+2026-01-23 02:17:40,341 - tinvest_api - INFO - ✓ Получены исторические данные для GMKN: 2401 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:42,094 - tinvest_api - INFO - Запрос данных для TATN с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:42,135 - tinvest_api - INFO - ✓ Получено 13 свечей для TATN
+2026-01-23 02:17:42,171 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_TATN_15m.csv (2237 строк)
+2026-01-23 02:17:42,176 - tinvest_api - INFO - ✓ Получены исторические данные для TATN: 2237 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:44,036 - tinvest_api - INFO - Запрос данных для MGNT с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:44,082 - tinvest_api - INFO - ✓ Получено 13 свечей для MGNT
+2026-01-23 02:17:44,106 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_MGNT_15m.csv (2301 строк)
+2026-01-23 02:17:44,108 - tinvest_api - INFO - ✓ Получены исторические данные для MGNT: 2301 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:45,888 - tinvest_api - INFO - Запрос данных для AFLT с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:45,924 - tinvest_api - INFO - ✓ Получено 13 свечей для AFLT
+2026-01-23 02:17:45,951 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_AFLT_15m.csv (2403 строк)
+2026-01-23 02:17:45,960 - tinvest_api - INFO - ✓ Получены исторические данные для AFLT: 2403 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:17:48,242 - tinvest_api - INFO - Запрос данных для SNGS с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:48,279 - tinvest_api - INFO - ✓ Получено 13 свечей для SNGS
+2026-01-23 02:17:48,305 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SNGS_15m.csv (1443 строк)
+2026-01-23 02:17:48,308 - tinvest_api - INFO - ✓ Получены исторические данные для SNGS: 1443 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:17:50,161 - tinvest_api - INFO - Запрос данных для SNGSP с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:50,215 - tinvest_api - INFO - ✓ Получено 13 свечей для SNGSP
+2026-01-23 02:17:50,257 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SNGSP_15m.csv (1516 строк)
+2026-01-23 02:17:50,262 - tinvest_api - INFO - ✓ Получены исторические данные для SNGSP: 1516 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:17:52,560 - tinvest_api - INFO - Запрос данных для CHMF с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:52,596 - tinvest_api - INFO - ✓ Получено 13 свечей для CHMF
+2026-01-23 02:17:52,617 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_CHMF_15m.csv (1472 строк)
+2026-01-23 02:17:52,621 - tinvest_api - INFO - ✓ Получены исторические данные для CHMF: 1472 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:17:54,660 - tinvest_api - INFO - Запрос данных для NLMK с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:54,699 - tinvest_api - INFO - ✓ Получено 13 свечей для NLMK
+2026-01-23 02:17:54,715 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_NLMK_15m.csv (1460 строк)
+2026-01-23 02:17:54,718 - tinvest_api - INFO - ✓ Получены исторические данные для NLMK: 1460 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:17:56,712 - tinvest_api - INFO - Запрос данных для MAGN с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:56,755 - tinvest_api - INFO - ✓ Получено 13 свечей для MAGN
+2026-01-23 02:17:56,788 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_MAGN_15m.csv (1498 строк)
+2026-01-23 02:17:56,790 - tinvest_api - INFO - ✓ Получены исторические данные для MAGN: 1498 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:17:58,952 - tinvest_api - INFO - Запрос данных для MTSS с 2026-01-22 по 2026-01-23
+2026-01-23 02:17:58,993 - tinvest_api - INFO - ✓ Получено 13 свечей для MTSS
+2026-01-23 02:17:59,019 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_MTSS_15m.csv (1479 строк)
+2026-01-23 02:17:59,021 - tinvest_api - INFO - ✓ Получены исторические данные для MTSS: 1479 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:18:01,528 - tinvest_api - INFO - Запрос данных для IRAO с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:01,572 - tinvest_api - INFO - ✓ Получено 13 свечей для IRAO
+2026-01-23 02:18:01,608 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_IRAO_15m.csv (1514 строк)
+2026-01-23 02:18:01,612 - tinvest_api - INFO - ✓ Получены исторические данные для IRAO: 1514 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:18:03,576 - tinvest_api - INFO - Запрос данных для ALRS с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:03,614 - tinvest_api - INFO - ✓ Получено 13 свечей для ALRS
+2026-01-23 02:18:03,635 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_ALRS_15m.csv (1474 строк)
+2026-01-23 02:18:03,637 - tinvest_api - INFO - ✓ Получены исторические данные для ALRS: 1474 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:18:05,375 - tinvest_api - INFO - Запрос данных для PHOR с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:05,411 - tinvest_api - INFO - ✓ Получено 13 свечей для PHOR
+2026-01-23 02:18:05,427 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_PHOR_15m.csv (1380 строк)
+2026-01-23 02:18:05,430 - tinvest_api - INFO - ✓ Получены исторические данные для PHOR: 1380 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:18:07,340 - tinvest_api - INFO - Запрос данных для PLZL с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:07,383 - tinvest_api - INFO - ✓ Получено 13 свечей для PLZL
+2026-01-23 02:18:07,404 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_PLZL_15m.csv (1519 строк)
+2026-01-23 02:18:07,407 - tinvest_api - INFO - ✓ Получены исторические данные для PLZL: 1519 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:18:09,293 - tinvest_api - INFO - Запрос данных для RUAL с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:09,333 - tinvest_api - INFO - ✓ Получено 13 свечей для RUAL
+2026-01-23 02:18:09,352 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_RUAL_15m.csv (1487 строк)
+2026-01-23 02:18:09,354 - tinvest_api - INFO - ✓ Получены исторические данные для RUAL: 1487 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:18:11,219 - tinvest_api - INFO - Запрос данных для AFKS с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:11,259 - tinvest_api - INFO - ✓ Получено 13 свечей для AFKS
+2026-01-23 02:18:11,275 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_AFKS_15m.csv (1420 строк)
+2026-01-23 02:18:11,277 - tinvest_api - INFO - ✓ Получены исторические данные для AFKS: 1420 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:18:13,028 - tinvest_api - INFO - Запрос данных для TRNFP с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:13,066 - tinvest_api - INFO - ✓ Получено 13 свечей для TRNFP
+2026-01-23 02:18:13,082 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_TRNFP_15m.csv (1498 строк)
+2026-01-23 02:18:13,084 - tinvest_api - INFO - ✓ Получены исторические данные для TRNFP: 1498 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:18:15,107 - tinvest_api - INFO - Запрос данных для SIBN с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:15,145 - tinvest_api - INFO - ✓ Получено 13 свечей для SIBN
+2026-01-23 02:18:15,158 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SIBN_15m.csv (1464 строк)
+2026-01-23 02:18:15,160 - tinvest_api - INFO - ✓ Получены исторические данные для SIBN: 1464 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:18:16,958 - tinvest_api - INFO - Запрос данных для FLOT с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:17,001 - tinvest_api - INFO - ✓ Получено 13 свечей для FLOT
+2026-01-23 02:18:17,027 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_FLOT_15m.csv (1401 строк)
+2026-01-23 02:18:17,030 - tinvest_api - INFO - ✓ Получены исторические данные для FLOT: 1401 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:18:18,784 - tinvest_api - INFO - Запрос данных для BANE с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:18,820 - tinvest_api - INFO - ✓ Получено 13 свечей для BANE
+2026-01-23 02:18:18,836 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_BANE_15m.csv (956 строк)
+2026-01-23 02:18:18,841 - tinvest_api - INFO - ✓ Получены исторические данные для BANE: 956 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:18:20,823 - tinvest_api - INFO - Запрос данных для BANEP с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:20,861 - tinvest_api - INFO - ✓ Получено 13 свечей для BANEP
+2026-01-23 02:18:20,877 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_BANEP_15m.csv (1245 строк)
+2026-01-23 02:18:20,880 - tinvest_api - INFO - ✓ Получены исторические данные для BANEP: 1245 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:18:24,114 - tinvest_api - INFO - Запрос данных для RNFT с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:24,164 - tinvest_api - INFO - ✓ Получено 13 свечей для RNFT
+2026-01-23 02:18:24,194 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_RNFT_15m.csv (1388 строк)
+2026-01-23 02:18:24,197 - tinvest_api - INFO - ✓ Получены исторические данные для RNFT: 1388 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:18:26,632 - tinvest_api - INFO - Запрос данных для TATNP с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:26,672 - tinvest_api - INFO - ✓ Получено 13 свечей для TATNP
+2026-01-23 02:18:26,692 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_TATNP_15m.csv (1241 строк)
+2026-01-23 02:18:26,694 - tinvest_api - INFO - ✓ Получены исторические данные для TATNP: 1241 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:18:28,949 - tinvest_api - INFO - Запрос данных для SELG с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:28,989 - tinvest_api - INFO - ✓ Получено 13 свечей для SELG
+2026-01-23 02:18:29,004 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SELG_15m.csv (1367 строк)
+2026-01-23 02:18:29,006 - tinvest_api - INFO - ✓ Получены исторические данные для SELG: 1367 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:18:31,252 - tinvest_api - INFO - Запрос данных для UGLD с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:31,296 - tinvest_api - INFO - ✓ Получено 13 свечей для UGLD
+2026-01-23 02:18:31,317 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_UGLD_15m.csv (970 строк)
+2026-01-23 02:18:31,322 - tinvest_api - INFO - ✓ Получены исторические данные для UGLD: 970 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:18:34,031 - tinvest_api - INFO - Запрос данных для LNZL с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:34,083 - tinvest_api - INFO - ✓ Получено 12 свечей для LNZL
+2026-01-23 02:18:34,099 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_LNZL_15m.csv (856 строк)
+2026-01-23 02:18:34,101 - tinvest_api - INFO - ✓ Получены исторические данные для LNZL: 856 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:18:34,110 - __main__ - ERROR - Ошибка обработки LNZL: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+Traceback (most recent call last):
+  File "C:\Users\karim\OneDrive\Рабочий стол\Bot\main.py", line 2017, in process_symbols
+    sig_buy = bool(self.strategy.should_buy(analysis, min_confidence=MIN_CONF_BUY))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\karim\OneDrive\Рабочий стол\Bot\trading_strategy.py", line 349, in should_buy
+    return (analysis['signal'] == 'buy' and
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+            trend != 'down')
+            ^^^^^^^^^^^^^^^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\pandas\core\generic.py", line 1580, in __nonzero__
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2026-01-23 02:18:36,049 - tinvest_api - INFO - Запрос данных для USD000UTSTOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:36,084 - tinvest_api - INFO - ✓ Получено 1 свечей для USD000UTSTOM
+2026-01-23 02:18:36,088 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_USD000UTSTOM_15m.csv (13 строк)
+2026-01-23 02:18:36,090 - tinvest_api - INFO - ✓ Получены исторические данные для USD000UTSTOM: 13 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:18:38,114 - tinvest_api - INFO - Запрос данных для CNYRUB_TOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:38,152 - tinvest_api - INFO - ✓ Получено 13 свечей для CNYRUB_TOM
+2026-01-23 02:18:38,160 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_CNYRUB_TOM_15m.csv (481 строк)
+2026-01-23 02:18:38,161 - tinvest_api - INFO - ✓ Получены исторические данные для CNYRUB_TOM: 481 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:18:39,791 - tinvest_api - INFO - Запрос данных для GLDRUB_TOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:39,827 - tinvest_api - INFO - ✓ Получено 13 свечей для GLDRUB_TOM
+2026-01-23 02:18:39,835 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_GLDRUB_TOM_15m.csv (481 строк)
+2026-01-23 02:18:39,836 - tinvest_api - INFO - ✓ Получены исторические данные для GLDRUB_TOM: 481 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:18:41,550 - tinvest_api - INFO - Запрос данных для SLVRUB_TOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:41,588 - tinvest_api - INFO - ✓ Получено 13 свечей для SLVRUB_TOM
+2026-01-23 02:18:41,597 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SLVRUB_TOM_15m.csv (481 строк)
+2026-01-23 02:18:41,599 - tinvest_api - INFO - ✓ Получены исторические данные для SLVRUB_TOM: 481 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:18:43,913 - tinvest_api - INFO - Запрос данных для PLTRUB_TOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:43,952 - tinvest_api - INFO - ✓ Получено 13 свечей для PLTRUB_TOM
+2026-01-23 02:18:43,961 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_PLTRUB_TOM_15m.csv (480 строк)
+2026-01-23 02:18:43,962 - tinvest_api - INFO - ✓ Получены исторические данные для PLTRUB_TOM: 480 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:18:45,646 - tinvest_api - INFO - Запрос данных для PLDRUB_TOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:18:45,684 - tinvest_api - INFO - ✓ Получено 13 свечей для PLDRUB_TOM
+2026-01-23 02:18:45,692 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_PLDRUB_TOM_15m.csv (481 строк)
+2026-01-23 02:18:45,693 - tinvest_api - INFO - ✓ Получены исторические данные для PLDRUB_TOM: 481 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:18:45,699 - tinvest_api - INFO - Количество 75 не кратно лоту 10 для SELG. Корректируем до 80
+2026-01-23 02:18:45,883 - tinkoff.invest.logging - ERROR - 12c004c365555c099fe7ff1f30b2a779 PostSandboxOrder INVALID_ARGUMENT 30079
+2026-01-23 02:18:45,884 - tinvest_api - ERROR - Ошибка при вызове PostSandboxOrder: figi=BBG002458LF8, quantity=80, direction=1, account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, error=(<StatusCode.INVALID_ARGUMENT: (3, 'invalid argument')>, '30079', Metadata(tracking_id='12c004c365555c099fe7ff1f30b2a779', ratelimit_limit='200, 200;w=60', ratelimit_remaining=199, ratelimit_reset=15, message='Instrument is not available for trading'))
+2026-01-23 02:18:45,884 - tinvest_api - WARNING - Инструмент SELG недоступен для торговли (код 30079). Возможные причины: торговая сессия закрыта, инструмент приостановлен, или недоступен в sandbox.
+2026-01-23 02:18:45,885 - __main__ - ERROR - ❌ НЕ УДАЛОСЬ РАЗМЕСТИТЬ ЗАЯВКУ: SELG, qty_lots=75, price=51.14, reason=place_market_order вернул None
+2026-01-23 02:18:46,084 - tinkoff.invest.logging - ERROR - 4c195011fab9f7177bd93452fdd70136 PostSandboxOrder INVALID_ARGUMENT 30079
+2026-01-23 02:18:46,084 - tinvest_api - ERROR - Ошибка при вызове PostSandboxOrder: figi=BBGPLTRUBTOM, quantity=6, direction=1, account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, error=(<StatusCode.INVALID_ARGUMENT: (3, 'invalid argument')>, '30079', Metadata(tracking_id='4c195011fab9f7177bd93452fdd70136', ratelimit_limit='200, 200;w=60', ratelimit_remaining=198, ratelimit_reset=14, message='Instrument is not available for trading'))
+2026-01-23 02:18:46,085 - tinvest_api - WARNING - Инструмент PLTRUB_TOM недоступен для торговли (код 30079). Возможные причины: торговая сессия закрыта, инструмент приостановлен, или недоступен в sandbox.
+2026-01-23 02:18:46,085 - __main__ - ERROR - ❌ НЕ УДАЛОСЬ РАЗМЕСТИТЬ ЗАЯВКУ: PLTRUB_TOM, qty_lots=6, price=6299.00, reason=place_market_order вернул None
+2026-01-23 02:18:54,340 - tinvest_api - INFO - Позиции: найдено 1 (account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, sandbox=True); portfolio_shares_total=0.00, portfolio_positions=1
+2026-01-23 02:24:01,125 - tinvest_api - INFO - Позиции: найдено 1 (account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, sandbox=True); portfolio_shares_total=0.00, portfolio_positions=1
+2026-01-23 02:24:01,133 - __main__ - INFO - Проверка просадки от пика: пик=195094.27, текущая=193855.38, просадка=-0.64%, лимит=5.00%, allow_entries=True
+2026-01-23 02:24:02,698 - tinvest_api - INFO - Запрос данных для SBER с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:02,753 - tinvest_api - INFO - ✓ Получено 13 свечей для SBER
+2026-01-23 02:24:02,788 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SBER_15m.csv (2436 строк)
+2026-01-23 02:24:02,790 - tinvest_api - INFO - ✓ Получены исторические данные для SBER: 2436 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:04,267 - tinvest_api - INFO - Запрос данных для GAZP с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:04,316 - tinvest_api - INFO - ✓ Получено 13 свечей для GAZP
+2026-01-23 02:24:04,337 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_GAZP_15m.csv (2433 строк)
+2026-01-23 02:24:04,339 - tinvest_api - INFO - ✓ Получены исторические данные для GAZP: 2433 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:05,812 - tinvest_api - INFO - Запрос данных для YNDX с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:05,863 - tinvest_api - INFO - ✓ Получено 13 свечей для YNDX
+2026-01-23 02:24:05,896 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_YNDX_15m.csv (2434 строк)
+2026-01-23 02:24:05,899 - tinvest_api - INFO - ✓ Получены исторические данные для YNDX: 2434 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:07,408 - tinvest_api - INFO - Запрос данных для VTBR с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:07,444 - tinvest_api - INFO - ✓ Получено 13 свечей для VTBR
+2026-01-23 02:24:07,466 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_VTBR_15m.csv (2436 строк)
+2026-01-23 02:24:07,468 - tinvest_api - INFO - ✓ Получены исторические данные для VTBR: 2436 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:08,886 - tinvest_api - INFO - Запрос данных для MOEX с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:08,920 - tinvest_api - INFO - ✓ Получено 13 свечей для MOEX
+2026-01-23 02:24:08,936 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_MOEX_15m.csv (2389 строк)
+2026-01-23 02:24:08,937 - tinvest_api - INFO - ✓ Получены исторические данные для MOEX: 2389 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:10,675 - tinvest_api - INFO - Запрос данных для LKOH с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:10,714 - tinvest_api - INFO - ✓ Получено 13 свечей для LKOH
+2026-01-23 02:24:10,743 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_LKOH_15m.csv (2418 строк)
+2026-01-23 02:24:10,744 - tinvest_api - INFO - ✓ Получены исторические данные для LKOH: 2418 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:12,327 - tinvest_api - INFO - Запрос данных для ROSN с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:12,369 - tinvest_api - INFO - ✓ Получено 13 свечей для ROSN
+2026-01-23 02:24:12,411 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_ROSN_15m.csv (2424 строк)
+2026-01-23 02:24:12,415 - tinvest_api - INFO - ✓ Получены исторические данные для ROSN: 2424 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:14,367 - tinvest_api - INFO - Запрос данных для NVTK с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:14,408 - tinvest_api - INFO - ✓ Получено 13 свечей для NVTK
+2026-01-23 02:24:14,449 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_NVTK_15m.csv (2412 строк)
+2026-01-23 02:24:14,452 - tinvest_api - INFO - ✓ Получены исторические данные для NVTK: 2412 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:16,077 - tinvest_api - INFO - Запрос данных для GMKN с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:16,115 - tinvest_api - INFO - ✓ Получено 13 свечей для GMKN
+2026-01-23 02:24:16,137 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_GMKN_15m.csv (2401 строк)
+2026-01-23 02:24:16,140 - tinvest_api - INFO - ✓ Получены исторические данные для GMKN: 2401 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:17,711 - tinvest_api - INFO - Запрос данных для TATN с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:17,748 - tinvest_api - INFO - ✓ Получено 13 свечей для TATN
+2026-01-23 02:24:17,783 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_TATN_15m.csv (2237 строк)
+2026-01-23 02:24:17,786 - tinvest_api - INFO - ✓ Получены исторические данные для TATN: 2237 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:19,278 - tinvest_api - INFO - Запрос данных для MGNT с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:19,321 - tinvest_api - INFO - ✓ Получено 13 свечей для MGNT
+2026-01-23 02:24:19,344 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_MGNT_15m.csv (2301 строк)
+2026-01-23 02:24:19,346 - tinvest_api - INFO - ✓ Получены исторические данные для MGNT: 2301 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:21,130 - tinvest_api - INFO - Запрос данных для AFLT с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:21,165 - tinvest_api - INFO - ✓ Получено 13 свечей для AFLT
+2026-01-23 02:24:21,185 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_AFLT_15m.csv (2403 строк)
+2026-01-23 02:24:21,188 - tinvest_api - INFO - ✓ Получены исторические данные для AFLT: 2403 свечей за период 2025-12-20 - 2026-01-22
+2026-01-23 02:24:22,809 - tinvest_api - INFO - Запрос данных для SNGS с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:22,853 - tinvest_api - INFO - ✓ Получено 13 свечей для SNGS
+2026-01-23 02:24:22,877 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SNGS_15m.csv (1443 строк)
+2026-01-23 02:24:22,879 - tinvest_api - INFO - ✓ Получены исторические данные для SNGS: 1443 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:24,388 - tinvest_api - INFO - Запрос данных для SNGSP с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:24,425 - tinvest_api - INFO - ✓ Получено 13 свечей для SNGSP
+2026-01-23 02:24:24,445 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SNGSP_15m.csv (1516 строк)
+2026-01-23 02:24:24,448 - tinvest_api - INFO - ✓ Получены исторические данные для SNGSP: 1516 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:26,075 - tinvest_api - INFO - Запрос данных для CHMF с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:26,116 - tinvest_api - INFO - ✓ Получено 13 свечей для CHMF
+2026-01-23 02:24:26,142 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_CHMF_15m.csv (1472 строк)
+2026-01-23 02:24:26,146 - tinvest_api - INFO - ✓ Получены исторические данные для CHMF: 1472 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:27,905 - tinvest_api - INFO - Запрос данных для NLMK с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:27,950 - tinvest_api - INFO - ✓ Получено 13 свечей для NLMK
+2026-01-23 02:24:27,979 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_NLMK_15m.csv (1460 строк)
+2026-01-23 02:24:27,982 - tinvest_api - INFO - ✓ Получены исторические данные для NLMK: 1460 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:29,600 - tinvest_api - INFO - Запрос данных для MAGN с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:29,647 - tinvest_api - INFO - ✓ Получено 13 свечей для MAGN
+2026-01-23 02:24:29,666 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_MAGN_15m.csv (1498 строк)
+2026-01-23 02:24:29,668 - tinvest_api - INFO - ✓ Получены исторические данные для MAGN: 1498 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:31,312 - tinvest_api - INFO - Запрос данных для MTSS с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:31,355 - tinvest_api - INFO - ✓ Получено 13 свечей для MTSS
+2026-01-23 02:24:31,380 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_MTSS_15m.csv (1479 строк)
+2026-01-23 02:24:31,383 - tinvest_api - INFO - ✓ Получены исторические данные для MTSS: 1479 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:33,263 - tinvest_api - INFO - Запрос данных для IRAO с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:33,306 - tinvest_api - INFO - ✓ Получено 13 свечей для IRAO
+2026-01-23 02:24:33,338 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_IRAO_15m.csv (1514 строк)
+2026-01-23 02:24:33,341 - tinvest_api - INFO - ✓ Получены исторические данные для IRAO: 1514 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:35,045 - tinvest_api - INFO - Запрос данных для ALRS с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:35,088 - tinvest_api - INFO - ✓ Получено 13 свечей для ALRS
+2026-01-23 02:24:35,118 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_ALRS_15m.csv (1474 строк)
+2026-01-23 02:24:35,120 - tinvest_api - INFO - ✓ Получены исторические данные для ALRS: 1474 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:37,092 - tinvest_api - INFO - Запрос данных для PHOR с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:37,128 - tinvest_api - INFO - ✓ Получено 13 свечей для PHOR
+2026-01-23 02:24:37,139 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_PHOR_15m.csv (1380 строк)
+2026-01-23 02:24:37,141 - tinvest_api - INFO - ✓ Получены исторические данные для PHOR: 1380 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:38,879 - tinvest_api - INFO - Запрос данных для PLZL с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:38,914 - tinvest_api - INFO - ✓ Получено 13 свечей для PLZL
+2026-01-23 02:24:38,926 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_PLZL_15m.csv (1519 строк)
+2026-01-23 02:24:38,927 - tinvest_api - INFO - ✓ Получены исторические данные для PLZL: 1519 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:40,659 - tinvest_api - INFO - Запрос данных для RUAL с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:40,702 - tinvest_api - INFO - ✓ Получено 13 свечей для RUAL
+2026-01-23 02:24:40,731 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_RUAL_15m.csv (1487 строк)
+2026-01-23 02:24:40,733 - tinvest_api - INFO - ✓ Получены исторические данные для RUAL: 1487 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:42,356 - tinvest_api - INFO - Запрос данных для AFKS с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:42,394 - tinvest_api - INFO - ✓ Получено 13 свечей для AFKS
+2026-01-23 02:24:42,411 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_AFKS_15m.csv (1420 строк)
+2026-01-23 02:24:42,413 - tinvest_api - INFO - ✓ Получены исторические данные для AFKS: 1420 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:44,173 - tinvest_api - INFO - Запрос данных для TRNFP с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:44,213 - tinvest_api - INFO - ✓ Получено 13 свечей для TRNFP
+2026-01-23 02:24:44,229 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_TRNFP_15m.csv (1498 строк)
+2026-01-23 02:24:44,232 - tinvest_api - INFO - ✓ Получены исторические данные для TRNFP: 1498 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:45,945 - tinvest_api - INFO - Запрос данных для SIBN с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:45,984 - tinvest_api - INFO - ✓ Получено 13 свечей для SIBN
+2026-01-23 02:24:45,995 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SIBN_15m.csv (1464 строк)
+2026-01-23 02:24:45,997 - tinvest_api - INFO - ✓ Получены исторические данные для SIBN: 1464 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:47,468 - tinvest_api - INFO - Запрос данных для FLOT с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:47,505 - tinvest_api - INFO - ✓ Получено 13 свечей для FLOT
+2026-01-23 02:24:47,516 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_FLOT_15m.csv (1401 строк)
+2026-01-23 02:24:47,517 - tinvest_api - INFO - ✓ Получены исторические данные для FLOT: 1401 свечей за период 2026-01-02 - 2026-01-22
+2026-01-23 02:24:48,950 - tinvest_api - INFO - Запрос данных для BANE с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:48,984 - tinvest_api - INFO - ✓ Получено 13 свечей для BANE
+2026-01-23 02:24:48,994 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_BANE_15m.csv (956 строк)
+2026-01-23 02:24:48,997 - tinvest_api - INFO - ✓ Получены исторические данные для BANE: 956 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:24:50,512 - tinvest_api - INFO - Запрос данных для BANEP с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:50,547 - tinvest_api - INFO - ✓ Получено 13 свечей для BANEP
+2026-01-23 02:24:50,558 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_BANEP_15m.csv (1245 строк)
+2026-01-23 02:24:50,560 - tinvest_api - INFO - ✓ Получены исторические данные для BANEP: 1245 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:24:52,508 - tinvest_api - INFO - Запрос данных для RNFT с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:52,550 - tinvest_api - INFO - ✓ Получено 13 свечей для RNFT
+2026-01-23 02:24:52,566 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_RNFT_15m.csv (1388 строк)
+2026-01-23 02:24:52,568 - tinvest_api - INFO - ✓ Получены исторические данные для RNFT: 1388 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:24:54,144 - tinvest_api - INFO - Запрос данных для TATNP с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:54,210 - tinvest_api - INFO - ✓ Получено 13 свечей для TATNP
+2026-01-23 02:24:54,229 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_TATNP_15m.csv (1241 строк)
+2026-01-23 02:24:54,230 - tinvest_api - INFO - ✓ Получены исторические данные для TATNP: 1241 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:24:55,645 - tinvest_api - INFO - Запрос данных для SELG с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:55,686 - tinvest_api - INFO - ✓ Получено 13 свечей для SELG
+2026-01-23 02:24:55,710 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SELG_15m.csv (1367 строк)
+2026-01-23 02:24:55,713 - tinvest_api - INFO - ✓ Получены исторические данные для SELG: 1367 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:24:57,159 - tinvest_api - INFO - Запрос данных для UGLD с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:57,202 - tinvest_api - INFO - ✓ Получено 13 свечей для UGLD
+2026-01-23 02:24:57,215 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_UGLD_15m.csv (970 строк)
+2026-01-23 02:24:57,217 - tinvest_api - INFO - ✓ Получены исторические данные для UGLD: 970 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:24:58,690 - tinvest_api - INFO - Запрос данных для LNZL с 2026-01-22 по 2026-01-23
+2026-01-23 02:24:58,728 - tinvest_api - INFO - ✓ Получено 12 свечей для LNZL
+2026-01-23 02:24:58,736 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_LNZL_15m.csv (856 строк)
+2026-01-23 02:24:58,737 - tinvest_api - INFO - ✓ Получены исторические данные для LNZL: 856 свечей за период 2026-01-03 - 2026-01-22
+2026-01-23 02:24:58,741 - __main__ - ERROR - Ошибка обработки LNZL: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+Traceback (most recent call last):
+  File "C:\Users\karim\OneDrive\Рабочий стол\Bot\main.py", line 2017, in process_symbols
+    sig_buy = bool(self.strategy.should_buy(analysis, min_confidence=MIN_CONF_BUY))
+                   ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\karim\OneDrive\Рабочий стол\Bot\trading_strategy.py", line 349, in should_buy
+    return (analysis['signal'] == 'buy' and
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+            trend != 'down')
+            ^^^^^^^^^^^^^^^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\pandas\core\generic.py", line 1580, in __nonzero__
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+2026-01-23 02:25:00,409 - tinvest_api - INFO - Запрос данных для USD000UTSTOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:25:00,445 - tinvest_api - INFO - ✓ Получено 1 свечей для USD000UTSTOM
+2026-01-23 02:25:00,450 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_USD000UTSTOM_15m.csv (13 строк)
+2026-01-23 02:25:00,451 - tinvest_api - INFO - ✓ Получены исторические данные для USD000UTSTOM: 13 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:25:02,515 - tinvest_api - INFO - Запрос данных для CNYRUB_TOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:25:02,553 - tinvest_api - INFO - ✓ Получено 13 свечей для CNYRUB_TOM
+2026-01-23 02:25:02,562 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_CNYRUB_TOM_15m.csv (481 строк)
+2026-01-23 02:25:02,563 - tinvest_api - INFO - ✓ Получены исторические данные для CNYRUB_TOM: 481 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:25:04,330 - tinvest_api - INFO - Запрос данных для GLDRUB_TOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:25:04,372 - tinvest_api - INFO - ✓ Получено 13 свечей для GLDRUB_TOM
+2026-01-23 02:25:04,392 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_GLDRUB_TOM_15m.csv (481 строк)
+2026-01-23 02:25:04,394 - tinvest_api - INFO - ✓ Получены исторические данные для GLDRUB_TOM: 481 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:25:06,143 - tinvest_api - INFO - Запрос данных для SLVRUB_TOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:25:06,182 - tinvest_api - INFO - ✓ Получено 13 свечей для SLVRUB_TOM
+2026-01-23 02:25:06,198 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_SLVRUB_TOM_15m.csv (481 строк)
+2026-01-23 02:25:06,200 - tinvest_api - INFO - ✓ Получены исторические данные для SLVRUB_TOM: 481 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:25:07,761 - tinvest_api - INFO - Запрос данных для PLTRUB_TOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:25:07,813 - tinvest_api - INFO - ✓ Получено 13 свечей для PLTRUB_TOM
+2026-01-23 02:25:07,822 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_PLTRUB_TOM_15m.csv (480 строк)
+2026-01-23 02:25:07,824 - tinvest_api - INFO - ✓ Получены исторические данные для PLTRUB_TOM: 480 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:25:09,307 - tinvest_api - INFO - Запрос данных для PLDRUB_TOM с 2026-01-22 по 2026-01-23
+2026-01-23 02:25:09,347 - tinvest_api - INFO - ✓ Получено 13 свечей для PLDRUB_TOM
+2026-01-23 02:25:09,354 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache\tinvest_sandbox\candles_PLDRUB_TOM_15m.csv (481 строк)
+2026-01-23 02:25:09,356 - tinvest_api - INFO - ✓ Получены исторические данные для PLDRUB_TOM: 481 свечей за период 2026-01-05 - 2026-01-22
+2026-01-23 02:25:09,362 - tinvest_api - INFO - Количество 75 не кратно лоту 10 для SELG. Корректируем до 80
+2026-01-23 02:25:09,556 - tinkoff.invest.logging - ERROR - 01c0ffd03053a1003ce7bbd2095eae82 PostSandboxOrder INVALID_ARGUMENT 30079
+2026-01-23 02:25:09,556 - tinvest_api - ERROR - Ошибка при вызове PostSandboxOrder: figi=BBG002458LF8, quantity=80, direction=1, account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, error=(<StatusCode.INVALID_ARGUMENT: (3, 'invalid argument')>, '30079', Metadata(tracking_id='01c0ffd03053a1003ce7bbd2095eae82', ratelimit_limit='200, 200;w=60', ratelimit_remaining=199, ratelimit_reset=51, message='Instrument is not available for trading'))
+2026-01-23 02:25:09,557 - tinvest_api - WARNING - Инструмент SELG недоступен для торговли (код 30079). Возможные причины: торговая сессия закрыта, инструмент приостановлен, или недоступен в sandbox.
+2026-01-23 02:25:09,557 - __main__ - ERROR - ❌ НЕ УДАЛОСЬ РАЗМЕСТИТЬ ЗАЯВКУ: SELG, qty_lots=75, price=51.14, reason=place_market_order вернул None
+2026-01-23 02:25:09,748 - tinkoff.invest.logging - ERROR - f3067468e2af73b4ed9a157f406eb8d8 PostSandboxOrder INVALID_ARGUMENT 30079
+2026-01-23 02:25:09,748 - tinvest_api - ERROR - Ошибка при вызове PostSandboxOrder: figi=BBGPLTRUBTOM, quantity=6, direction=1, account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, error=(<StatusCode.INVALID_ARGUMENT: (3, 'invalid argument')>, '30079', Metadata(tracking_id='f3067468e2af73b4ed9a157f406eb8d8', ratelimit_limit='200, 200;w=60', ratelimit_remaining=198, ratelimit_reset=51, message='Instrument is not available for trading'))
+2026-01-23 02:25:09,749 - tinvest_api - WARNING - Инструмент PLTRUB_TOM недоступен для торговли (код 30079). Возможные причины: торговая сессия закрыта, инструмент приостановлен, или недоступен в sandbox.
+2026-01-23 02:25:09,749 - __main__ - ERROR - ❌ НЕ УДАЛОСЬ РАЗМЕСТИТЬ ЗАЯВКУ: PLTRUB_TOM, qty_lots=6, price=6299.00, reason=place_market_order вернул None
+2026-01-23 02:25:15,220 - tinvest_api - INFO - Позиции: найдено 1 (account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, sandbox=True); portfolio_shares_total=0.00, portfolio_positions=1
+2026-01-23 02:27:11,075 - telegram.ext.Updater - ERROR - Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 134, in network_retry_loop
+    await do_action()
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 127, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 676, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 4780, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-01-23 02:27:16,274 - telegram.ext.Updater - ERROR - Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 134, in network_retry_loop
+    await do_action()
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 127, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 676, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 4780, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-01-23 02:27:22,410 - telegram.ext.Updater - ERROR - Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 134, in network_retry_loop
+    await do_action()
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 127, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 676, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 4780, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-01-23 02:27:30,067 - telegram.ext.Updater - ERROR - Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 134, in network_retry_loop
+    await do_action()
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 127, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 676, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 4780, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-01-23 02:27:36,938 - telegram.ext.Updater - ERROR - Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 134, in network_retry_loop
+    await do_action()
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 127, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 676, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 4780, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-01-23 02:27:47,468 - telegram.ext.Updater - ERROR - Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 134, in network_retry_loop
+    await do_action()
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 127, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 676, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 4780, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-01-23 02:28:03,034 - telegram.ext.Updater - ERROR - Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 134, in network_retry_loop
+    await do_action()
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 127, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 676, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 4780, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-01-23 02:28:18,690 - telegram.ext.Updater - ERROR - Exception happened while polling for updates.
+Traceback (most recent call last):
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 134, in network_retry_loop
+    await do_action()
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_utils\networkloop.py", line 127, in do_action
+    action_cb_task.result()
+    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_updater.py", line 340, in polling_action_cb
+    updates = await self.bot.get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 676, in get_updates
+    updates = await super().get_updates(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<9 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 4780, in get_updates
+    await self._post(
+    ^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    ),
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\ext\_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+    )
+    ^
+  File "C:\Users\karim\AppData\Local\Programs\Python\Python314\Lib\site-packages\telegram\request\_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.Conflict: Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+2026-01-23 02:28:22,585 - __main__ - INFO - Отмена задач (CancelledError). Останавливаемся...
+2026-01-23 02:28:22,585 - __main__ - INFO - Торговый бот остановлен
+2026-01-23 02:28:35,978 - telegram.ext.Application - INFO - Application is stopping. This might take a moment.
+2026-01-23 02:28:35,979 - telegram.ext.Application - INFO - Application.stop() complete
