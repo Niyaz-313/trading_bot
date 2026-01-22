@@ -1,0 +1,76 @@
+========================================
+ОБНОВЛЕНИЕ КОДА НА СЕРВЕРЕ
+========================================
+
+ЭТАП 1: Отправка в Git (локально)
+========================================
+
+# Вариант 1: Скрипт (РЕКОМЕНДУЕТСЯ)
+sync_to_server.bat
+
+# Вариант 2: Вручную
+git add .
+git commit -m "Обновление отчета по дням"
+git fetch origin
+git pull origin main --no-edit
+git push origin main
+
+========================================
+ЭТАП 2: Обновление на сервере
+========================================
+
+# Подключиться к серверу
+ssh botuser@YOUR_IPv4_ADDRESS
+
+# Перейти в директорию (проверьте правильный путь)
+cd ~/trading_bot
+# или
+cd ~/trading_bot/trading_bot
+
+# Запустить обновление (автоматически перезапустит бота)
+./server_update.sh
+
+# Или вручную:
+git fetch origin
+git pull origin main
+source venv/bin/activate
+pip install -r requirements.txt
+sudo systemctl restart trading-bot.service
+
+========================================
+УПРАВЛЕНИЕ БОТОМ НА СЕРВЕРЕ
+========================================
+
+# Перезапустить
+sudo systemctl restart trading-bot.service
+
+# Остановить
+sudo systemctl stop trading-bot.service
+
+# Запустить
+sudo systemctl start trading-bot.service
+
+# Статус
+sudo systemctl status trading-bot.service --no-pager
+
+# Логи в реальном времени
+sudo journalctl -u trading-bot.service -f
+
+# Последние 50 строк логов
+sudo journalctl -u trading-bot.service -n 50 --no-pager
+
+========================================
+ПРОВЕРКА УСПЕШНОГО ОБНОВЛЕНИЯ
+========================================
+
+# Статус должен быть: Active: active (running)
+sudo systemctl status trading-bot.service
+
+# Проверить ошибки в логах
+sudo journalctl -u trading-bot.service -n 50 | grep -i error
+
+# Проверить работу новой функции
+# Запросите отчет в Telegram: /day 2026-01-22
+
+========================================
+
