@@ -4938,3 +4938,54 @@ ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.i
 2026-01-22 02:58:58,333 - __main__ - INFO - Торговый бот остановлен
 2026-01-22 02:58:58,336 - __main__ - INFO - Остановка бота (CancelledError)...
 2026-01-22 02:58:58,336 - __main__ - INFO - Торговый бот остановлен
+2026-01-23 01:11:21,028 - broker_api - WARNING - T-Invest токен не указан. Используется режим симуляции.
+2026-01-23 01:11:21,028 - broker_api - WARNING - Используется режим симуляции (без реальных сделок)
+2026-01-23 01:11:21,028 - telegram_bot - WARNING - Telegram бот не настроен (отсутствует токен)
+2026-01-23 01:11:21,060 - __main__ - INFO - Торговый бот инициализирован (брокер: tinvest)
+2026-01-23 01:11:23,708 - __main__ - INFO - Symbol Tracker инициализирован
+2026-01-23 01:11:23,708 - __main__ - INFO - Market Regime Detector инициализирован
+2026-01-23 01:11:23,709 - __main__ - INFO - Correlation Guard инициализирован (max 2 в группе)
+2026-01-23 01:11:23,709 - __main__ - INFO - Торговый бот запущен
+2026-01-23 01:11:23,711 - __main__ - INFO - Проверка просадки от пика: пик=195094.27, текущая=10000.00, просадка=-94.87%, лимит=5.00%, allow_entries=False
+2026-01-23 01:11:23,711 - broker_api - ERROR - Исторические данные для SBER доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,715 - broker_api - ERROR - Исторические данные для GAZP доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,716 - broker_api - ERROR - Исторические данные для YNDX доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,716 - broker_api - ERROR - Исторические данные для VTBR доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,716 - broker_api - ERROR - Исторические данные для MOEX доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,717 - broker_api - ERROR - Исторические данные для LKOH доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,717 - broker_api - ERROR - Исторические данные для ROSN доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,718 - broker_api - ERROR - Исторические данные для NVTK доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,718 - broker_api - ERROR - Исторические данные для GMKN доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,718 - broker_api - ERROR - Исторические данные для TATN доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,719 - broker_api - ERROR - Исторические данные для MGNT доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,719 - broker_api - ERROR - Исторические данные для AFLT доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,719 - broker_api - ERROR - Исторические данные для SNGS доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,719 - broker_api - ERROR - Исторические данные для SNGSP доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,719 - broker_api - ERROR - Исторические данные для CHMF доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,720 - broker_api - ERROR - Исторические данные для NLMK доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,720 - broker_api - ERROR - Исторические данные для MAGN доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,720 - broker_api - ERROR - Исторические данные для MTSS доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,720 - broker_api - ERROR - Исторические данные для IRAO доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,721 - broker_api - ERROR - Исторические данные для ALRS доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,721 - broker_api - ERROR - Исторические данные для PHOR доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,721 - broker_api - ERROR - Исторические данные для PLZL доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,721 - broker_api - ERROR - Исторические данные для RUAL доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,721 - broker_api - ERROR - Исторические данные для AFKS доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,721 - broker_api - ERROR - Исторические данные для TRNFP доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,722 - broker_api - ERROR - Исторические данные для SIBN доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,722 - broker_api - ERROR - Исторические данные для FLOT доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,722 - broker_api - ERROR - Исторические данные для BANE доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,722 - broker_api - ERROR - Исторические данные для BANEP доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,722 - broker_api - ERROR - Исторические данные для RNFT доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,722 - broker_api - ERROR - Исторические данные для TATNP доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,723 - broker_api - ERROR - Исторические данные для SELG доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,723 - broker_api - ERROR - Исторические данные для UGLD доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,723 - broker_api - ERROR - Исторические данные для LNZL доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,723 - broker_api - ERROR - Исторические данные для USD000UTSTOM доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,723 - broker_api - ERROR - Исторические данные для CNYRUB_TOM доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,723 - broker_api - ERROR - Исторические данные для GLDRUB_TOM доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,724 - broker_api - ERROR - Исторические данные для SLVRUB_TOM доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,724 - broker_api - ERROR - Исторические данные для PLTRUB_TOM доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:23,724 - broker_api - ERROR - Исторические данные для PLDRUB_TOM доступны только через T-Invest (BROKER=tinvest).
+2026-01-23 01:11:36,355 - __main__ - INFO - Отмена задач (CancelledError). Останавливаемся...
+2026-01-23 01:11:36,355 - __main__ - INFO - Торговый бот остановлен
