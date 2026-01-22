@@ -9,7 +9,8 @@ echo.
 
 REM Настройки
 set "SERVER_USER=botuser"
-set "SERVER_IP=ваш_сервер_ip"
+REM ЗАМЕНИТЕ на ваш IPv4 адрес сервера (например, "192.168.1.100")
+set "SERVER_IP=YOUR_IPv4_ADDRESS"
 set "BACKUP_DIR=C:\Backups\TradingBot"
 set "DATE_STR=%date:~-4,4%%date:~-7,2%%date:~-10,2%_%time:~0,2%%time:~3,2%%time:~6,2%"
 set "DATE_STR=!DATE_STR: =0!"
