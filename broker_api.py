@@ -85,11 +85,11 @@ class BrokerAPI:
                 return []
         return []
 
-    def get_recent_operations(self, limit: int = 10) -> List[Dict]:
+    def get_recent_operations(self, limit: int = 10, days: int = 7) -> List[Dict]:
         """Получить последние операции по счету (если брокер поддерживает)."""
         if self.client and isinstance(self.client, TInvestAPI):
             try:
-                return self.client.get_recent_operations(limit=limit)
+                return self.client.get_recent_operations(limit=limit, days=days)
             except Exception as e:
                 logger.error(f"Ошибка получения операций: {e}")
                 return []

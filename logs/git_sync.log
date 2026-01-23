@@ -193,3 +193,38 @@ From https://github.com/Niyaz-313/trading_bot
  M logs/git_sync.log
  M logs/trading_bot.log
 [2026-01-23 15:05:06] [4/5] Добавление логов в git...
+[2026-01-23 15:05:07] ПРЕДУПРЕЖДЕНИЕ: найдено 2 файлов размером >50MB
+audit_logs/trades_audit.csv
+audit_logs/trades_audit.jsonl
+[2026-01-23 15:05:07] [5/5] Создание коммита...
+[main b13785e] Auto-sync logs: 2026-01-23 15:05:07 MSK
+ 6 files changed, 4912 insertions(+)
+[2026-01-23 15:05:08] Отправка изменений на сервер...
+To https://github.com/Niyaz-313/trading_bot.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/Niyaz-313/trading_bot.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[2026-01-23 15:05:08] =========================================
+[2026-01-23 15:05:08] СИНХРОНИЗАЦИЯ ЗАВЕРШЕНА УСПЕШНО
+[2026-01-23 15:05:08] =========================================
+[2026-01-23 16:05:01] =========================================
+[2026-01-23 16:05:01] СИНХРОНИЗАЦИЯ ЛОГОВ С GIT
+[2026-01-23 16:05:01] =========================================
+[2026-01-23 16:05:01] [1/5] Получение изменений с сервера...
+From https://github.com/Niyaz-313/trading_bot
+ * branch            main       -> FETCH_HEAD
+Auto-merging logs/trading_bot.log
+CONFLICT (content): Merge conflict in logs/trading_bot.log
+Automatic merge failed; fix conflicts and then commit the result.
+[2026-01-23 16:05:04] [2/5] Проверка изменений...
+[2026-01-23 16:05:04] Найдено изменений: 5 файлов
+[2026-01-23 16:05:04] [3/5] Измененные файлы:
+ M audit_logs/trades_audit.csv
+ M audit_logs/trades_audit.jsonl
+ M logs/cron_sync.log
+ M logs/git_sync.log
+UU logs/trading_bot.log
+[2026-01-23 16:05:04] [4/5] Добавление логов в git...
