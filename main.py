@@ -64,6 +64,28 @@ def _canon_symbol(sym: str) -> str:
     if not s:
         return s
     try:
+        # Если это FIGI (начинается с BBG), пытаемся извлечь тикер из него
+        # Например: BBGPLDRUBTOM -> PLDRUBTOM -> PLDRUB_TOM
+        if s.startswith("BBG") and len(s) > 10:
+            # Убираем префикс BBG для поиска в маппинге
+            s_without_bbg = s[3:] if s.startswith("BBG") else s
+            # Проверяем маппинг для варианта без BBG
+            if s_without_bbg in {
+                "PLTRUBTOM": "PLTRUB_TOM",
+                "PLDRUBTOM": "PLDRUB_TOM",
+                "CNYRUBTOM": "CNYRUB_TOM",
+                "GLDRUBTOM": "GLDRUB_TOM",
+                "SLVRUBTOM": "SLVRUB_TOM",
+            }:
+                currency_map = {
+                    "PLTRUBTOM": "PLTRUB_TOM",
+                    "PLDRUBTOM": "PLDRUB_TOM",
+                    "CNYRUBTOM": "CNYRUB_TOM",
+                    "GLDRUBTOM": "GLDRUB_TOM",
+                    "SLVRUBTOM": "SLVRUB_TOM",
+                }
+                return currency_map[s_without_bbg]
+        
         # Сначала проверяем стандартный маппинг
         result = str(TICKER_CANONICAL_MAP.get(s, s)).strip().upper()
         # Дополнительная нормализация для валютных пар: PLTRUBTOM -> PLTRUB_TOM
@@ -995,12 +1017,16 @@ class TradingBot:
             return
 
         # Telegram уведомление
+        # Преобразуем FIGI в тикер для корректного отображения в Telegram
+        symbol_for_telegram = _ensure_ticker_not_figi(symbol, self.broker)
+        symbol_for_telegram = _canon_symbol(symbol_for_telegram)
+        
         currency = (account_info.get("currency") or "RUB")
         currency_symbol = {"RUB": "₽", "USD": "$", "EUR": "€"}.get(str(currency).upper(), str(currency).upper() + " ")
         qty_shares_total = float(qty_lots) * float(lot)
         reason = f"BUY (rank={rank}, score={score:.3f}) уверенность: {float(analysis.get('confidence',0) or 0)*100:.1f}%"
         message = self.telegram.format_trade_notification(
-            symbol, "BUY", qty_lots, current_price,
+            symbol_for_telegram, "BUY", qty_lots, current_price,
             current_price * qty_lots * lot, reason,
             currency=currency,
             currency_symbol=currency_symbol,
@@ -2704,12 +2730,16 @@ class TradingBot:
                         except (IndexError, AttributeError, ValueError, TypeError):
                             conf_val = float(analysis.get('confidence', 0) or 0)
                         reason = f"Сигнал продажи (уверенность: {conf_val*100:.1f}%)"
+                        # Преобразуем FIGI в тикер для корректного отображения в Telegram
+                        symbol_for_telegram = _ensure_ticker_not_figi(symbol, self.broker)
+                        symbol_for_telegram = _canon_symbol(symbol_for_telegram)
+                        
                         currency = (account_info.get("currency") or "RUB")
                         currency_symbol = {"RUB": "₽", "USD": "$", "EUR": "€"}.get(str(currency).upper(), str(currency).upper() + " ")
                         lot = int(position.get("lot", 1) or 1)
                         qty_shares = float(qty_lots) * float(lot)
                         message = self.telegram.format_trade_notification(
-                            symbol, "SELL", qty_lots, current_price,
+                            symbol_for_telegram, "SELL", qty_lots, current_price,
                             current_price * qty_lots * lot, reason,
                             currency=currency,
                             currency_symbol=currency_symbol,
@@ -3033,11 +3063,15 @@ class TradingBot:
                         except (IndexError, AttributeError, ValueError, TypeError):
                             conf_val = float(analysis.get('confidence', 0) or 0)
                         reason = f"Сигнал покупки (уверенность: {conf_val*100:.1f}%)"
+                        # Преобразуем FIGI в тикер для корректного отображения в Telegram
+                        symbol_for_telegram = _ensure_ticker_not_figi(symbol, self.broker)
+                        symbol_for_telegram = _canon_symbol(symbol_for_telegram)
+                        
                         currency = (instrument.get("currency") if instrument else None) or (account_info.get("currency") or "RUB")
                         currency_symbol = {"RUB": "₽", "USD": "$", "EUR": "€"}.get(str(currency).upper(), str(currency).upper() + " ")
                         qty_shares_total = float(qty_lots) * float(lot)
                         message = self.telegram.format_trade_notification(
-                            symbol, "BUY", qty_lots, current_price,
+                            symbol_for_telegram, "BUY", qty_lots, current_price,
                             current_price * qty_lots * lot, reason,
                             currency=currency,
                             currency_symbol=currency_symbol,
@@ -3376,12 +3410,16 @@ class TradingBot:
                             
                             continue
                         if order:
+                            # Преобразуем FIGI в тикер для корректного отображения в Telegram
+                            symbol_for_telegram = _ensure_ticker_not_figi(symbol, self.broker)
+                            symbol_for_telegram = _canon_symbol(symbol_for_telegram)
+                            
                             loss = (float(current_price) - float(entry_price)) * float(qty_shares)
                             ai = self.broker.get_account_info()
                             currency = (ai.get("currency") or "RUB")
                             currency_symbol = {"RUB": "₽", "USD": "$", "EUR": "€"}.get(str(currency).upper(), str(currency).upper() + " ")
                             message = f"🛑 *Стоп-лосс сработал*\n\n"
-                            message += f"Символ: {symbol}\n"
+                            message += f"Символ: {symbol_for_telegram}\n"
                             message += f"Вход: {currency_symbol}{entry_price:.2f} {currency}\n"
                             message += f"Выход: {currency_symbol}{current_price:.2f} {currency}\n"
                             message += f"Убыток: {currency_symbol}{loss:.2f} {currency}"
@@ -3520,12 +3558,16 @@ class TradingBot:
                             
                             continue
                         if order:
+                            # Преобразуем FIGI в тикер для корректного отображения в Telegram
+                            symbol_for_telegram = _ensure_ticker_not_figi(symbol, self.broker)
+                            symbol_for_telegram = _canon_symbol(symbol_for_telegram)
+                            
                             profit = (float(current_price) - float(entry_price)) * float(qty_shares)
                             ai = self.broker.get_account_info()
                             currency = (ai.get("currency") or "RUB")
                             currency_symbol = {"RUB": "₽", "USD": "$", "EUR": "€"}.get(str(currency).upper(), str(currency).upper() + " ")
                             message = f"🎯 *Тейк-профит сработал*\n\n"
-                            message += f"Символ: {symbol}\n"
+                            message += f"Символ: {symbol_for_telegram}\n"
                             message += f"Вход: {currency_symbol}{entry_price:.2f} {currency}\n"
                             message += f"Выход: {currency_symbol}{current_price:.2f} {currency}\n"
                             message += f"Прибыль: {currency_symbol}{profit:.2f} {currency}"
