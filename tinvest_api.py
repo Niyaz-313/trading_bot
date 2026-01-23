@@ -1716,6 +1716,8 @@ class TInvestAPI:
         except RequestError as e:
             error_msg = str(e)
             error_code = None
+            error_details = {}
+            
             # Пытаемся извлечь код ошибки из метаданных
             if hasattr(e, 'metadata'):
                 if hasattr(e.metadata, 'message'):
@@ -1729,33 +1731,107 @@ class TInvestAPI:
                 elif hasattr(e.metadata, 'tracking_id'):
                     error_code = str(e.metadata.tracking_id)
             
-            # Обработка специфичных ошибок
+            # Собираем детальную информацию об ошибке
+            error_details = {
+                'error_type': 'RequestError',
+                'error_code': error_code,
+                'error_message': error_msg,
+                'symbol': symbol,
+                'figi': figi if 'figi' in locals() else None,
+                'qty': qty,
+                'side': side,
+                'lot': lot if 'lot' in locals() else None,
+                'account_id': account_id if 'account_id' in locals() else None,
+            }
+            
+            # Обработка специфичных ошибок с детальным логированием
             if '30034' in error_msg or '30034' in str(e) or 'Not enough balance' in error_msg or error_code == '30034':
-                logger.warning(f"Недостаточно баланса для размещения ордера {side.upper()} {qty} {symbol}. "
-                             f"Проверьте: 1) количество лотов в позиции, 2) баланс счета, 3) что позиция не была частично продана.")
-                # Для продажи: возможно, позиция была частично продана или закрыта
+                error_details['reason'] = 'insufficient_balance'
+                error_details['description'] = 'Недостаточно баланса для размещения ордера'
+                logger.error(f"❌ ОШИБКА РАЗМЕЩЕНИЯ ОРДЕРА {side.upper()}: {symbol} | "
+                           f"Код: 30034 | Причина: Недостаточно баланса | "
+                           f"Параметры: qty={qty} лотов, lot={lot if 'lot' in locals() else 'N/A'}, "
+                           f"figi={figi if 'figi' in locals() else 'N/A'}, account_id={account_id if 'account_id' in locals() else 'N/A'}")
+                logger.warning(f"   Проверьте: 1) количество лотов в позиции, 2) баланс счета, 3) что позиция не была частично продана")
                 if side.lower() == 'sell':
-                    logger.warning(f"Рекомендуется проверить актуальное количество лотов в позиции {symbol} через get_positions()")
+                    logger.warning(f"   Рекомендуется проверить актуальное количество лотов в позиции {symbol} через get_positions()")
             elif '30079' in error_msg or '30079' in str(e) or error_code == '30079' or 'Instrument is not available for trading' in error_msg:
-                # Инструмент недоступен для торговли - это не критичная ошибка, просто инструмент нельзя торговать сейчас
-                logger.warning(f"Инструмент {symbol} недоступен для торговли (код 30079). "
-                             f"Возможные причины: торговая сессия закрыта, инструмент приостановлен, или недоступен в sandbox.")
+                error_details['reason'] = 'instrument_not_available'
+                error_details['description'] = 'Инструмент недоступен для торговли'
+                from datetime import datetime
+                current_time_msk = datetime.now().strftime('%H:%M:%S MSK')
+                logger.error(f"❌ ОШИБКА РАЗМЕЩЕНИЯ ОРДЕРА {side.upper()}: {symbol} | "
+                           f"Код: 30079 | Причина: Инструмент недоступен для торговли | "
+                           f"Время: {current_time_msk} | "
+                           f"Параметры: qty={qty} лотов, lot={lot if 'lot' in locals() else 'N/A'}, "
+                           f"figi={figi if 'figi' in locals() else 'N/A'}")
+                logger.warning(f"   Возможные причины: торговая сессия закрыта (MOEX работает 10:00-18:45 MSK), "
+                             f"инструмент приостановлен, или недоступен в sandbox")
             else:
-                logger.error(f"Ошибка размещения ордера для {symbol}: {e}")
+                error_details['reason'] = 'unknown_request_error'
+                error_details['description'] = f'Неизвестная ошибка RequestError: {error_msg}'
+                logger.error(f"❌ ОШИБКА РАЗМЕЩЕНИЯ ОРДЕРА {side.upper()}: {symbol} | "
+                           f"Тип: RequestError | Сообщение: {error_msg} | "
+                           f"Параметры: qty={qty} лотов, lot={lot if 'lot' in locals() else 'N/A'}, "
+                           f"figi={figi if 'figi' in locals() else 'N/A'}, account_id={account_id if 'account_id' in locals() else 'N/A'}", 
+                           exc_info=True)
+            
+            # Сохраняем детали ошибки в атрибуте для доступа извне
+            if not hasattr(self, '_last_order_error'):
+                self._last_order_error = {}
+            self._last_order_error = error_details
+            
             return None
         except Exception as e:
             error_msg = str(e)
+            error_type = type(e).__name__
+            error_details = {
+                'error_type': error_type,
+                'error_message': error_msg,
+                'symbol': symbol,
+                'figi': figi if 'figi' in locals() else None,
+                'qty': qty,
+                'side': side,
+                'lot': lot if 'lot' in locals() else None,
+                'account_id': account_id if 'account_id' in locals() else None,
+            }
+            
             if '30034' in error_msg or 'Not enough balance' in error_msg:
-                logger.warning(f"Недостаточно баланса для размещения ордера {side.upper()} {qty} {symbol}. "
-                             f"Проверьте: 1) количество лотов в позиции, 2) баланс счета, 3) что позиция не была частично продана.")
+                error_details['reason'] = 'insufficient_balance'
+                error_details['description'] = 'Недостаточно баланса для размещения ордера'
+                logger.error(f"❌ ОШИБКА РАЗМЕЩЕНИЯ ОРДЕРА {side.upper()}: {symbol} | "
+                           f"Тип: {error_type} | Причина: Недостаточно баланса | "
+                           f"Параметры: qty={qty} лотов, lot={lot if 'lot' in locals() else 'N/A'}, "
+                           f"figi={figi if 'figi' in locals() else 'N/A'}")
+                logger.warning(f"   Проверьте: 1) количество лотов в позиции, 2) баланс счета, 3) что позиция не была частично продана")
                 if side.lower() == 'sell':
-                    logger.warning(f"Рекомендуется проверить актуальное количество лотов в позиции {symbol} через get_positions()")
+                    logger.warning(f"   Рекомендуется проверить актуальное количество лотов в позиции {symbol} через get_positions()")
             elif '30079' in error_msg or 'Instrument is not available for trading' in error_msg:
-                # Инструмент недоступен для торговли - это не критичная ошибка, просто инструмент нельзя торговать сейчас
-                logger.warning(f"Инструмент {symbol} недоступен для торговли (код 30079). "
-                             f"Возможные причины: торговая сессия закрыта, инструмент приостановлен, или недоступен в sandbox.")
+                error_details['reason'] = 'instrument_not_available'
+                error_details['description'] = 'Инструмент недоступен для торговли'
+                from datetime import datetime
+                current_time_msk = datetime.now().strftime('%H:%M:%S MSK')
+                logger.error(f"❌ ОШИБКА РАЗМЕЩЕНИЯ ОРДЕРА {side.upper()}: {symbol} | "
+                           f"Тип: {error_type} | Код: 30079 | Причина: Инструмент недоступен для торговли | "
+                           f"Время: {current_time_msk} | "
+                           f"Параметры: qty={qty} лотов, lot={lot if 'lot' in locals() else 'N/A'}, "
+                           f"figi={figi if 'figi' in locals() else 'N/A'}")
+                logger.warning(f"   Возможные причины: торговая сессия закрыта (MOEX работает 10:00-18:45 MSK), "
+                             f"инструмент приостановлен, или недоступен в sandbox")
             else:
-                logger.error(f"Неожиданная ошибка при размещении ордера для {symbol}: {e}", exc_info=True)
+                error_details['reason'] = 'unknown_error'
+                error_details['description'] = f'Неожиданная ошибка: {error_msg}'
+                logger.error(f"❌ ОШИБКА РАЗМЕЩЕНИЯ ОРДЕРА {side.upper()}: {symbol} | "
+                           f"Тип: {error_type} | Сообщение: {error_msg} | "
+                           f"Параметры: qty={qty} лотов, lot={lot if 'lot' in locals() else 'N/A'}, "
+                           f"figi={figi if 'figi' in locals() else 'N/A'}, account_id={account_id if 'account_id' in locals() else 'N/A'}", 
+                           exc_info=True)
+            
+            # Сохраняем детали ошибки в атрибуте для доступа извне
+            if not hasattr(self, '_last_order_error'):
+                self._last_order_error = {}
+            self._last_order_error = error_details
+            
             return None
     
     def place_limit_order(self, symbol: str, qty: int, side: str, limit_price: float) -> Optional[Dict]:
