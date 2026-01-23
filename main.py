@@ -2549,7 +2549,9 @@ class TradingBot:
                     # Используем symbol_for_api для размещения ордера
                     order = self.broker.place_market_order(symbol_for_api, qty_lots, 'sell')
                     if order:
-                        reason = f"Сигнал продажи (уверенность: {analysis['confidence']*100:.1f}%)"
+                        # Безопасное извлечение скалярного значения confidence
+                        conf_val = float(analysis['confidence'].item() if isinstance(analysis['confidence'], pd.Series) else analysis['confidence'])
+                        reason = f"Сигнал продажи (уверенность: {conf_val*100:.1f}%)"
                         currency = (account_info.get("currency") or "RUB")
                         currency_symbol = {"RUB": "₽", "USD": "$", "EUR": "€"}.get(str(currency).upper(), str(currency).upper() + " ")
                         lot = int(position.get("lot", 1) or 1)
@@ -2870,7 +2872,9 @@ class TradingBot:
                 if validation['valid'] and ENABLE_TRADING:
                     order = self.broker.place_market_order(symbol, qty_lots, 'buy')
                     if order:
-                        reason = f"Сигнал покупки (уверенность: {analysis['confidence']*100:.1f}%)"
+                        # Безопасное извлечение скалярного значения confidence
+                        conf_val = float(analysis['confidence'].item() if isinstance(analysis['confidence'], pd.Series) else analysis['confidence'])
+                        reason = f"Сигнал покупки (уверенность: {conf_val*100:.1f}%)"
                         currency = (instrument.get("currency") if instrument else None) or (account_info.get("currency") or "RUB")
                         currency_symbol = {"RUB": "₽", "USD": "$", "EUR": "€"}.get(str(currency).upper(), str(currency).upper() + " ")
                         qty_shares_total = float(qty_lots) * float(lot)

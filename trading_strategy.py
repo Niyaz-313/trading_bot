@@ -346,11 +346,22 @@ class TradingStrategy:
             pass
 
         # ОПТИМИЗИРОВАНО (2026-01-17): снижено требование buy_signals до 1 для достижения 10+ сделок в день
-        return (analysis['signal'] == 'buy' and
-                analysis['confidence'] >= min_confidence and
-                analysis.get('buy_signals', 0) >= 1 and
+        # Безопасное извлечение скалярных значений из pandas Series
+        signal_val = analysis['signal'].item() if isinstance(analysis['signal'], pd.Series) else analysis['signal']
+        confidence_val = analysis['confidence'].item() if isinstance(analysis['confidence'], pd.Series) else analysis['confidence']
+        buy_signals_val = analysis.get('buy_signals', 0)
+        if isinstance(buy_signals_val, pd.Series):
+            buy_signals_val = buy_signals_val.item()
+        
+        return (signal_val == 'buy' and
+                confidence_val >= min_confidence and
+                buy_signals_val >= 1 and
                 trend != 'down')
     
     def should_sell(self, analysis: Dict, min_confidence: float = 0.5) -> bool:
         """Проверить, следует ли продавать"""
-        return analysis['signal'] == 'sell' and analysis['confidence'] >= min_confidence
+        # Безопасное извлечение скалярных значений из pandas Series
+        signal_val = analysis['signal'].item() if isinstance(analysis['signal'], pd.Series) else analysis['signal']
+        confidence_val = analysis['confidence'].item() if isinstance(analysis['confidence'], pd.Series) else analysis['confidence']
+        
+        return signal_val == 'sell' and confidence_val >= min_confidence
