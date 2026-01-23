@@ -347,11 +347,30 @@ class TradingStrategy:
 
         # ОПТИМИЗИРОВАНО (2026-01-17): снижено требование buy_signals до 1 для достижения 10+ сделок в день
         # Безопасное извлечение скалярных значений из pandas Series
-        signal_val = analysis['signal'].item() if isinstance(analysis['signal'], pd.Series) else analysis['signal']
-        confidence_val = analysis['confidence'].item() if isinstance(analysis['confidence'], pd.Series) else analysis['confidence']
+        try:
+            if isinstance(analysis['signal'], pd.Series):
+                signal_val = analysis['signal'].iloc[0] if len(analysis['signal']) > 0 else analysis['signal'].values[0] if len(analysis['signal'].values) > 0 else str(analysis['signal'].values[0])
+            else:
+                signal_val = analysis['signal']
+        except (IndexError, AttributeError, ValueError):
+            signal_val = str(analysis['signal']) if analysis['signal'] is not None else 'hold'
+        
+        try:
+            if isinstance(analysis['confidence'], pd.Series):
+                confidence_val = float(analysis['confidence'].iloc[0] if len(analysis['confidence']) > 0 else analysis['confidence'].values[0])
+            else:
+                confidence_val = float(analysis['confidence'])
+        except (IndexError, AttributeError, ValueError, TypeError):
+            confidence_val = float(analysis.get('confidence', 0) or 0)
+        
         buy_signals_val = analysis.get('buy_signals', 0)
-        if isinstance(buy_signals_val, pd.Series):
-            buy_signals_val = buy_signals_val.item()
+        try:
+            if isinstance(buy_signals_val, pd.Series):
+                buy_signals_val = int(buy_signals_val.iloc[0] if len(buy_signals_val) > 0 else buy_signals_val.values[0])
+            else:
+                buy_signals_val = int(buy_signals_val or 0)
+        except (IndexError, AttributeError, ValueError, TypeError):
+            buy_signals_val = 0
         
         return (signal_val == 'buy' and
                 confidence_val >= min_confidence and
@@ -361,7 +380,20 @@ class TradingStrategy:
     def should_sell(self, analysis: Dict, min_confidence: float = 0.5) -> bool:
         """Проверить, следует ли продавать"""
         # Безопасное извлечение скалярных значений из pandas Series
-        signal_val = analysis['signal'].item() if isinstance(analysis['signal'], pd.Series) else analysis['signal']
-        confidence_val = analysis['confidence'].item() if isinstance(analysis['confidence'], pd.Series) else analysis['confidence']
+        try:
+            if isinstance(analysis['signal'], pd.Series):
+                signal_val = analysis['signal'].iloc[0] if len(analysis['signal']) > 0 else analysis['signal'].values[0] if len(analysis['signal'].values) > 0 else str(analysis['signal'].values[0])
+            else:
+                signal_val = analysis['signal']
+        except (IndexError, AttributeError, ValueError):
+            signal_val = str(analysis['signal']) if analysis['signal'] is not None else 'hold'
+        
+        try:
+            if isinstance(analysis['confidence'], pd.Series):
+                confidence_val = float(analysis['confidence'].iloc[0] if len(analysis['confidence']) > 0 else analysis['confidence'].values[0])
+            else:
+                confidence_val = float(analysis['confidence'])
+        except (IndexError, AttributeError, ValueError, TypeError):
+            confidence_val = float(analysis.get('confidence', 0) or 0)
         
         return signal_val == 'sell' and confidence_val >= min_confidence
