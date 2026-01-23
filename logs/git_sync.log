@@ -160,3 +160,36 @@ Updating 23f781a..6b2c956
  M logs/git_sync.log
  M logs/trading_bot.log
 [2026-01-23 14:05:02] [4/5] Добавление логов в git...
+[2026-01-23 14:05:04] ПРЕДУПРЕЖДЕНИЕ: найдено 2 файлов размером >50MB
+audit_logs/trades_audit.csv
+audit_logs/trades_audit.jsonl
+[2026-01-23 14:05:04] [5/5] Создание коммита...
+[main 60751c7] Auto-sync logs: 2026-01-23 14:05:04 MSK
+ 6 files changed, 5462 insertions(+)
+[2026-01-23 14:05:05] Отправка изменений на сервер...
+To https://github.com/Niyaz-313/trading_bot.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/Niyaz-313/trading_bot.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. If you want to integrate the remote changes,
+hint: use 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[2026-01-23 14:05:05] =========================================
+[2026-01-23 14:05:05] СИНХРОНИЗАЦИЯ ЗАВЕРШЕНА УСПЕШНО
+[2026-01-23 14:05:05] =========================================
+[2026-01-23 15:05:01] =========================================
+[2026-01-23 15:05:01] СИНХРОНИЗАЦИЯ ЛОГОВ С GIT
+[2026-01-23 15:05:01] =========================================
+[2026-01-23 15:05:01] [1/5] Получение изменений с сервера...
+From https://github.com/Niyaz-313/trading_bot
+ * branch            main       -> FETCH_HEAD
+[2026-01-23 15:05:05] [2/5] Проверка изменений...
+[2026-01-23 15:05:06] Найдено изменений: 6 файлов
+[2026-01-23 15:05:06] [3/5] Измененные файлы:
+ M audit_logs/trades_audit.csv
+ M audit_logs/trades_audit.jsonl
+ M logs/bot_error.log
+ M logs/cron_sync.log
+ M logs/git_sync.log
+ M logs/trading_bot.log
+[2026-01-23 15:05:06] [4/5] Добавление логов в git...
