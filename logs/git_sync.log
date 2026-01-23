@@ -357,3 +357,36 @@ Already up to date.
  M logs/git_sync.log
  M logs/trading_bot.log
 [2026-01-23 20:05:01] [4/5] Добавление логов в git...
+[2026-01-23 20:05:03] ПРЕДУПРЕЖДЕНИЕ: найдено 2 файлов размером >50MB
+audit_logs/trades_audit.csv
+audit_logs/trades_audit.jsonl
+[2026-01-23 20:05:03] [5/5] Создание коммита...
+[main db1bf60] Auto-sync logs: 2026-01-23 20:05:03 MSK
+ 6 files changed, 3146 insertions(+)
+[2026-01-23 20:05:04] Отправка изменений на сервер...
+remote: warning: See https://gh.io/lfs for more information.        
+remote: warning: File audit_logs/trades_audit.csv is 63.08 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File audit_logs/trades_audit.jsonl is 96.33 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To https://github.com/Niyaz-313/trading_bot.git
+   618961f..db1bf60  main -> main
+[2026-01-23 20:05:18] =========================================
+[2026-01-23 20:05:18] СИНХРОНИЗАЦИЯ ЗАВЕРШЕНА УСПЕШНО
+[2026-01-23 20:05:18] =========================================
+[2026-01-23 21:05:01] =========================================
+[2026-01-23 21:05:01] СИНХРОНИЗАЦИЯ ЛОГОВ С GIT
+[2026-01-23 21:05:01] =========================================
+[2026-01-23 21:05:01] [1/5] Получение изменений с сервера...
+From https://github.com/Niyaz-313/trading_bot
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[2026-01-23 21:05:01] [2/5] Проверка изменений...
+[2026-01-23 21:05:01] Найдено изменений: 6 файлов
+[2026-01-23 21:05:01] [3/5] Измененные файлы:
+ M audit_logs/trades_audit.csv
+ M audit_logs/trades_audit.jsonl
+ M logs/bot_error.log
+ M logs/cron_sync.log
+ M logs/git_sync.log
+ M logs/trading_bot.log
+[2026-01-23 21:05:01] [4/5] Добавление логов в git...
