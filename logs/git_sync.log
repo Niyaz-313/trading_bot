@@ -14,3 +14,45 @@ Already up to date.
  M logs/trading_bot.log
 ?? logs/git_sync.log
 [2026-01-23 11:22:09] [4/5] Добавление логов в git...
+[2026-01-23 11:22:10] ПРЕДУПРЕЖДЕНИЕ: найдено 2 файлов размером >50MB
+audit_logs/trades_audit.csv
+audit_logs/trades_audit.jsonl
+[2026-01-23 11:22:10] [5/5] Создание коммита...
+[main 63d4cc8] Auto-sync logs: 2026-01-23 11:22:10 MSK
+ 5 files changed, 59414 insertions(+)
+ create mode 100644 logs/git_sync.log
+[2026-01-23 11:22:11] Отправка изменений на сервер...
+remote: warning: See https://gh.io/lfs for more information.        
+remote: warning: File audit_logs/trades_audit.csv is 60.73 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File audit_logs/trades_audit.csv is 57.58 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File audit_logs/trades_audit.jsonl is 92.61 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File audit_logs/trades_audit.jsonl is 87.67 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To https://github.com/Niyaz-313/trading_bot.git
+   f4c4260..63d4cc8  main -> main
+[2026-01-23 11:22:30] =========================================
+[2026-01-23 11:22:30] СИНХРОНИЗАЦИЯ ЗАВЕРШЕНА УСПЕШНО
+[2026-01-23 11:22:30] =========================================
+[2026-01-23 12:05:01] =========================================
+[2026-01-23 12:05:01] СИНХРОНИЗАЦИЯ ЛОГОВ С GIT
+[2026-01-23 12:05:01] =========================================
+[2026-01-23 12:05:01] [1/5] Получение изменений с сервера...
+From https://github.com/Niyaz-313/trading_bot
+ * branch            main       -> FETCH_HEAD
+   63d4cc8..5e3017a  main       -> origin/main
+Updating 63d4cc8..5e3017a
+Fast-forward
+ main.py                                            | 52 +++++++++++++++++++--
+ ...234\320\233\320\225\320\235\320\230\320\231.md" | 54 ++++++++++++++++++++++
+ 2 files changed, 101 insertions(+), 5 deletions(-)
+ create mode 100644 "\320\230\320\241\320\237\320\240\320\220\320\222\320\233\320\225\320\235\320\230\320\225_TELEGRAM_\320\243\320\222\320\225\320\224\320\236\320\234\320\233\320\225\320\235\320\230\320\231.md"
+[2026-01-23 12:05:02] [2/5] Проверка изменений...
+[2026-01-23 12:05:02] Найдено изменений: 6 файлов
+[2026-01-23 12:05:02] [3/5] Измененные файлы:
+ M audit_logs/trades_audit.csv
+ M audit_logs/trades_audit.jsonl
+ M logs/bot_error.log
+ M logs/git_sync.log
+ M logs/trading_bot.log
+?? logs/cron_sync.log
+[2026-01-23 12:05:02] [4/5] Добавление логов в git...
