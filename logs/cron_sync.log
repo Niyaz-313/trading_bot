@@ -133,3 +133,37 @@ Automatic merge failed; fix conflicts and then commit the result.
  M logs/git_sync.log
 UU logs/trading_bot.log
 [2026-01-23 16:05:04] [4/5] Добавление логов в git...
+[2026-01-23 16:05:04] ПРЕДУПРЕЖДЕНИЕ: найдено 2 файлов размером >50MB
+audit_logs/trades_audit.csv
+audit_logs/trades_audit.jsonl
+[2026-01-23 16:05:04] [5/5] Создание коммита...
+[main 98e4111] Auto-sync logs: 2026-01-23 16:05:04 MSK
+[2026-01-23 16:05:04] Отправка изменений на сервер...
+remote: warning: See https://gh.io/lfs for more information.        
+remote: warning: File audit_logs/trades_audit.csv is 61.78 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File audit_logs/trades_audit.csv is 61.52 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File audit_logs/trades_audit.jsonl is 94.69 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File audit_logs/trades_audit.jsonl is 94.25 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File audit_logs/trades_audit.jsonl is 93.84 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File audit_logs/trades_audit.csv is 62.06 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To https://github.com/Niyaz-313/trading_bot.git
+   6b2c956..98e4111  main -> main
+[2026-01-23 16:05:27] =========================================
+[2026-01-23 16:05:27] СИНХРОНИЗАЦИЯ ЗАВЕРШЕНА УСПЕШНО
+[2026-01-23 16:05:27] =========================================
+[2026-01-23 17:05:01] =========================================
+[2026-01-23 17:05:01] СИНХРОНИЗАЦИЯ ЛОГОВ С GIT
+[2026-01-23 17:05:01] =========================================
+[2026-01-23 17:05:01] [1/5] Получение изменений с сервера...
+From https://github.com/Niyaz-313/trading_bot
+ * branch            main       -> FETCH_HEAD
+Already up to date.
+[2026-01-23 17:05:01] [2/5] Проверка изменений...
+[2026-01-23 17:05:01] Найдено изменений: 4 файлов
+[2026-01-23 17:05:01] [3/5] Измененные файлы:
+ M audit_logs/trades_audit.csv
+ M audit_logs/trades_audit.jsonl
+ M logs/cron_sync.log
+ M logs/git_sync.log
+[2026-01-23 17:05:01] [4/5] Добавление логов в git...
