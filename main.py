@@ -10,6 +10,9 @@ from typing import Dict, List
 import pandas as pd
 from zoneinfo import ZoneInfo
 
+# Константа для московского времени
+MSK_TZ = ZoneInfo("Europe/Moscow")
+
 from config import (
     SYMBOLS, UPDATE_INTERVAL, ENABLE_TRADING,
     LOG_FILE, AUDIT_LOG_PATH, AUDIT_CSV_PATH, STOP_LOSS_PERCENT, TAKE_PROFIT_PERCENT, TINVEST_SANDBOX, BROKER,
@@ -984,8 +987,7 @@ class TradingBot:
             
             # Дополнительное логирование в зависимости от типа ошибки
             if error_reason == 'instrument_not_available':
-                from datetime import datetime
-                current_time_msk = datetime.now().strftime('%H:%M:%S MSK')
+                current_time_msk = datetime.now(MSK_TZ).strftime('%H:%M:%S MSK')
                 logger.warning(f"   Время: {current_time_msk} | MOEX работает 10:00-18:45 MSK (основная сессия)")
             elif error_reason == 'insufficient_balance':
                 logger.warning(f"   Баланс: cash={account_info.get('cash', 0):.2f}, equity={account_info.get('equity', 0):.2f}")
@@ -1238,6 +1240,149 @@ class TradingBot:
                         equity_points.append((dt_loc, float(eq)))
         except Exception:
             pass
+        
+        # Дополняем данными из T-Invest API, если их нет в audit-логе
+        # Получаем операции за день из API
+        api_trades = []
+        try:
+            if self.broker and hasattr(self.broker, 'get_recent_operations'):
+                # Получаем операции за последние 7 дней (чтобы точно захватить сегодня)
+                ops = self.broker.get_recent_operations(limit=200, days=7)
+                logger.info(f"Получено {len(ops)} операций из API для проверки даты {target_date}")
+                for idx, op in enumerate(ops):
+                    try:
+                        op_date_str = op.get("date", "")
+                        if not op_date_str:
+                            continue
+                        
+                        # Логируем первые 5 операций для отладки формата даты
+                        if idx < 5:
+                            logger.info(f"Операция {idx}: date_str={op_date_str}, type={op.get('type')}, ticker={op.get('ticker')}")
+                        
+                        # Парсим дату операции (формат как в Telegram: "2026-01-23T11:42:35.203138+00:00")
+                        try:
+                            if op_date_str.endswith('Z'):
+                                dt_op = datetime.fromisoformat(op_date_str.replace('Z', '+00:00'))
+                            elif '+' in op_date_str or op_date_str.endswith('+00:00'):
+                                dt_op = datetime.fromisoformat(op_date_str)
+                            else:
+                                # Пробуем парсить без timezone
+                                dt_op = datetime.fromisoformat(op_date_str)
+                                dt_op = dt_op.replace(tzinfo=timezone.utc)
+                            
+                            if dt_op.tzinfo is None:
+                                dt_op = dt_op.replace(tzinfo=timezone.utc)
+                        except Exception as e:
+                            logger.warning(f"Ошибка парсинга даты {op_date_str}: {e}")
+                            continue
+                        
+                        dt_op_loc = dt_op.astimezone(self.tz)
+                        op_date = dt_op_loc.date()
+                        
+                        # Логируем первые операции для отладки
+                        if idx < 5:
+                            logger.info(f"Операция {idx}: parsed_date={op_date}, target_date={target_date}, match={op_date == target_date}")
+                        
+                        if op_date != target_date:
+                            continue
+                        
+                        # Определяем тип операции (используем ту же логику, что и в get_trades_text)
+                        typ = str(op.get("type", "")).lower()
+                        state = str(op.get("state", "")).lower()
+                        
+                        logger.info(f"Обработка операции за {target_date}: type={typ}, state={state}")
+                        
+                        # Пропускаем комиссии и налоги (они показываются отдельно в Telegram)
+                        if "комисс" in typ or "commission" in typ or "налог" in typ or "tax" in typ:
+                            logger.info(f"Пропущена служебная операция: {typ}")
+                            continue
+                        
+                        # Получаем данные операции (как в get_trades_text)
+                        payment = float(op.get("payment", 0) or 0)
+                        qty = op.get("quantity", None)
+                        price = op.get("price", None)
+                        figi = op.get("figi", "")
+                        ticker = op.get("ticker", "") or figi
+                        lot = int(op.get("lot", 1) or 1)
+                        
+                        logger.info(f"Обработка операции: type={typ}, ticker={ticker}, figi={figi}, qty={qty}, price={price}, payment={payment}")
+                        
+                        if qty is None or price is None or qty == 0:
+                            logger.debug(f"Пропущена операция без qty/price: qty={qty}, price={price}")
+                            continue
+                        
+                        # Определяем действие по типу операции (в Telegram видно "Покупка ЦБ" и "Продажа ЦБ")
+                        action = None
+                        if "покупка" in typ or "buy" in typ or "purchase" in typ:
+                            action = "BUY"
+                        elif "продажа" in typ or "sell" in typ:
+                            action = "SELL"
+                        else:
+                            # Если тип не указан явно, определяем по знаку payment
+                            # Отрицательный payment = покупка (деньги уходят)
+                            # Положительный payment = продажа (деньги приходят)
+                            action = "BUY" if payment < 0 else "SELL"
+                        
+                        if not action:
+                            logger.warning(f"Не удалось определить действие для операции: type={typ}, payment={payment}")
+                            continue
+                        
+                        qty_lots = abs(int(qty)) if qty else 0
+                        if qty_lots == 0:
+                            logger.debug(f"Пропущена операция с qty_lots=0: qty={qty}")
+                            continue
+                        
+                        # Преобразуем FIGI в тикер, если нужно
+                        symbol = ticker if ticker else figi
+                        if not symbol or symbol == figi or (figi.startswith("BBG") and not ticker):
+                            # Пробуем получить тикер через API, если он не указан
+                            if self.broker and hasattr(self.broker, 'get_instrument_by_figi'):
+                                try:
+                                    instrument = self.broker.get_instrument_by_figi(figi)
+                                    if instrument and instrument.get('ticker'):
+                                        symbol = instrument.get('ticker')
+                                except Exception:
+                                    pass
+                            # Если не получилось, используем _canon_symbol
+                            if symbol == figi or (figi.startswith("BBG") and not symbol):
+                                symbol = _canon_symbol(figi)
+                        
+                        logger.info(f"✅ Добавлена операция: {action} {symbol} {qty_lots} лотов @ {price:.2f}")
+                        
+                        # Создаем trade событие в формате audit-лога
+                        trade_event = {
+                            "event": "trade",
+                            "symbol": symbol,
+                            "action": action,
+                            "qty_lots": qty_lots,
+                            "lot": lot,
+                            "price": float(price),
+                            "ts_utc": dt_op.isoformat(),
+                        }
+                        
+                        api_trades.append((dt_op_loc, trade_event))
+                    except Exception as e:
+                        logger.warning(f"Ошибка обработки операции из API: {e}", exc_info=True)
+                        continue
+        except Exception as e:
+            logger.warning(f"Ошибка получения операций из API: {e}", exc_info=True)
+        
+        logger.info(f"Найдено {len(api_trades)} операций из API за {target_date}, {len(trades)} из audit-лога")
+        
+        # Объединяем trade события из audit-лога и API (приоритет у audit-лога)
+        trades_dict = {}  # (symbol, action, time) -> trade
+        for dt_loc, e in trades:
+            key = (e.get("symbol"), e.get("action"), dt_loc.strftime("%H:%M:%S"))
+            trades_dict[key] = (dt_loc, e)
+        
+        # Добавляем из API только те, которых нет в audit-логе
+        for dt_loc, e in api_trades:
+            key = (e.get("symbol"), e.get("action"), dt_loc.strftime("%H:%M:%S"))
+            if key not in trades_dict:
+                trades_dict[key] = (dt_loc, e)
+        
+        # Преобразуем обратно в список
+        trades = list(trades_dict.values())
 
         if not cycles and not trades and not skips:
             return f"📅 *Отчёт за {target_date.isoformat()}*\n\nНет данных в audit-логе за этот день (бот мог быть выключен)."
@@ -1286,88 +1431,73 @@ class TradingBot:
                 trough_dd = min(trough_dd, dd)
             max_dd = trough_dd
 
-        # Реализованный P/L по trade событиям за день (по average-cost в пределах лога)
-        # Для точности мы считаем базу по всем сделкам до конца дня, но суммируем realized только внутри дня.
+        # Реализованный P/L по trade событиям за день (по average-cost)
+        # Используем объединенный список trades (из audit-лога + API)
         realized = 0.0
         realized_profit = 0.0
         realized_loss = 0.0
         buy_count = 0
         sell_count = 0
         positions = {}  # sym -> {shares, cost}
-        try:
-            with open(AUDIT_LOG_PATH, "r", encoding="utf-8") as f:
-                import json
-                for line in f:
-                    line = line.strip()
-                    if not line:
-                        continue
-                    try:
-                        e = json.loads(line)
-                    except Exception:
-                        continue
-                    if e.get("event") != "trade":
-                        continue
-                    ts = e.get("ts_utc")
-                    if not ts:
-                        continue
-                    try:
-                        dt_utc = datetime.fromisoformat(ts.replace("Z", "+00:00"))
-                        dt_loc = dt_utc.astimezone(self.tz)
-                    except Exception:
-                        continue
-
-                    sym = str(e.get("symbol") or "").upper().strip()
-                    if not sym:
-                        continue
-                    action = str(e.get("action") or "").upper().strip()
-                    if action not in ("BUY", "SELL"):
-                        continue
-                    price = float(e.get("price") or 0.0)
-                    qty_lots = e.get("qty_lots")
-                    lot = e.get("lot")
+        
+        # Сортируем все сделки по времени для правильного расчета average-cost
+        all_trades_sorted = sorted(trades, key=lambda x: x[0])
+        
+        for dt_loc, e in all_trades_sorted:
+            try:
+                sym = str(e.get("symbol") or "").upper().strip()
+                if not sym:
+                    continue
+                action = str(e.get("action") or "").upper().strip()
+                if action not in ("BUY", "SELL"):
+                    continue
+                price = float(e.get("price") or 0.0)
+                qty_lots = e.get("qty_lots")
+                lot = e.get("lot")
+                shares = 0.0
+                try:
+                    if isinstance(qty_lots, (int, float)) and isinstance(lot, (int, float)) and float(lot) > 0:
+                        shares = float(qty_lots) * float(lot)
+                    elif isinstance(qty_lots, (int, float)):
+                        shares = float(qty_lots)
+                except Exception:
                     shares = 0.0
-                    try:
-                        if isinstance(qty_lots, (int, float)) and isinstance(lot, (int, float)) and float(lot) > 0:
-                            shares = float(qty_lots) * float(lot)
-                        elif isinstance(qty_lots, (int, float)):
-                            shares = float(qty_lots)
-                    except Exception:
-                        shares = 0.0
-                    if shares <= 0:
-                        continue
+                if shares <= 0:
+                    continue
 
-                    p = positions.setdefault(sym, {"shares": 0.0, "cost": 0.0})
-                    cur_sh = float(p["shares"])
-                    cur_cost = float(p["cost"])
-                    avg = (cur_cost / cur_sh) if cur_sh > 0 else 0.0
+                p = positions.setdefault(sym, {"shares": 0.0, "cost": 0.0})
+                cur_sh = float(p["shares"])
+                cur_cost = float(p["cost"])
+                avg = (cur_cost / cur_sh) if cur_sh > 0 else 0.0
 
-                    if action == "BUY":
-                        cur_sh += shares
-                        cur_cost += shares * price
+                if action == "BUY":
+                    cur_sh += shares
+                    cur_cost += shares * price
+                    if dt_loc.date() == target_date:
+                        buy_count += 1
+                else:
+                    # realized P/L vs avg cost
+                    sell_sh = min(shares, cur_sh) if cur_sh > 0 else 0.0
+                    if sell_sh > 0:
+                        pnl = sell_sh * (price - avg)
                         if dt_loc.date() == target_date:
-                            buy_count += 1
-                    else:
-                        # realized P/L vs avg cost
-                        sell_sh = min(shares, cur_sh) if cur_sh > 0 else 0.0
-                        if sell_sh > 0:
-                            pnl = sell_sh * (price - avg)
-                            if dt_loc.date() == target_date:
-                                realized += pnl
-                                sell_count += 1
-                                if pnl >= 0:
-                                    realized_profit += pnl
-                                else:
-                                    realized_loss += pnl
-                            cur_sh -= sell_sh
-                            cur_cost -= sell_sh * avg
-                            if cur_sh <= 1e-9:
-                                cur_sh = 0.0
-                                cur_cost = 0.0
+                            realized += pnl
+                            sell_count += 1
+                            if pnl >= 0:
+                                realized_profit += pnl
+                            else:
+                                realized_loss += pnl
+                        cur_sh -= sell_sh
+                        cur_cost -= sell_sh * avg
+                        if cur_sh <= 1e-9:
+                            cur_sh = 0.0
+                            cur_cost = 0.0
 
-                    p["shares"] = cur_sh
-                    p["cost"] = cur_cost
-        except Exception:
-            pass
+                p["shares"] = cur_sh
+                p["cost"] = cur_cost
+            except Exception as e:
+                logger.debug(f"Ошибка обработки сделки для P/L: {e}")
+                continue
 
         # Текст
         lines = [f"📅 *Отчёт за {target_date.isoformat()}*"]
@@ -1387,7 +1517,7 @@ class TradingBot:
             lines.append("\nEquity: недостаточно cycle‑снимков за день для расчёта просадки.")
 
         lines.append("")
-        lines.append(f"Сделок (по audit): BUY={buy_count}, SELL={sell_count} — количество событий trade в audit‑логе за день.")
+        lines.append(f"Сделок: BUY={buy_count}, SELL={sell_count} — количество операций за день (из audit-лога и API).")
         lines.append(
             f"Реализованный P/L: *{realized:.2f} {report_currency}* — прибыль/убыток только по закрытым сделкам (SELL), оценка по avg-cost. "
             f"(profit={realized_profit:.2f} {report_currency}, loss={realized_loss:.2f} {report_currency})"
@@ -1408,9 +1538,102 @@ class TradingBot:
 
         lines.append(f"Пропусков (skip): {len(skips)} — сколько раз бот решил НЕ входить/не выполнять действие.")
 
+        # Детализация по символам с покупками/продажами
+        symbol_details = {}  # symbol -> {buys: [], sells: [], total_buy_cost: 0, total_sell_amount: 0, pnl: 0}
+        
+        # Собираем данные по символам из trade событий
+        for dt_loc, e in trades:
+            sym = str(e.get("symbol") or "").upper().strip()
+            if not sym:
+                continue
+            sym = _canon_symbol(sym)
+            
+            if sym not in symbol_details:
+                symbol_details[sym] = {
+                    "buys": [],
+                    "sells": [],
+                    "total_buy_shares": 0.0,
+                    "total_buy_cost": 0.0,
+                    "total_sell_shares": 0.0,
+                    "total_sell_amount": 0.0,
+                }
+            
+            action = str(e.get("action") or "").upper().strip()
+            price = float(e.get("price") or 0.0)
+            qty_lots = e.get("qty_lots")
+            lot = e.get("lot")
+            shares = 0.0
+            try:
+                if isinstance(qty_lots, (int, float)) and isinstance(lot, (int, float)) and float(lot) > 0:
+                    shares = float(qty_lots) * float(lot)
+                elif isinstance(qty_lots, (int, float)):
+                    shares = float(qty_lots)
+            except Exception:
+                shares = 0.0
+            
+            if shares <= 0:
+                continue
+            
+            if action == "BUY":
+                symbol_details[sym]["buys"].append({
+                    "time": dt_loc.strftime("%H:%M:%S"),
+                    "qty": shares,
+                    "price": price,
+                    "amount": shares * price,
+                })
+                symbol_details[sym]["total_buy_shares"] += shares
+                symbol_details[sym]["total_buy_cost"] += shares * price
+            elif action == "SELL":
+                symbol_details[sym]["sells"].append({
+                    "time": dt_loc.strftime("%H:%M:%S"),
+                    "qty": shares,
+                    "price": price,
+                    "amount": shares * price,
+                })
+                symbol_details[sym]["total_sell_shares"] += shares
+                symbol_details[sym]["total_sell_amount"] += shares * price
+        
+        # Рассчитываем P/L для каждого символа
+        if symbol_details:
+            lines.append("")
+            lines.append("*Детализация по символам:*")
+            for sym in sorted(symbol_details.keys()):
+                det = symbol_details[sym]
+                if not det["buys"] and not det["sells"]:
+                    continue
+                
+                # Средняя цена покупки
+                avg_buy_price = (det["total_buy_cost"] / det["total_buy_shares"]) if det["total_buy_shares"] > 0 else 0.0
+                
+                # Реализованный P/L (только по закрытым позициям)
+                realized_pnl = 0.0
+                realized_pnl_pct = 0.0
+                if det["total_sell_shares"] > 0 and avg_buy_price > 0:
+                    realized_pnl = det["total_sell_amount"] - (avg_buy_price * det["total_sell_shares"])
+                    realized_pnl_pct = (realized_pnl / (avg_buy_price * det["total_sell_shares"]) * 100) if avg_buy_price > 0 else 0.0
+                
+                pnl_sign = "✅" if realized_pnl >= 0 else "❌"
+                
+                lines.append(f"\n*{sym}*:")
+                lines.append(f"  Покупок: {len(det['buys'])} ({det['total_buy_shares']:.0f} шт, {det['total_buy_cost']:.2f} {report_currency})")
+                lines.append(f"  Продаж: {len(det['sells'])} ({det['total_sell_shares']:.0f} шт, {det['total_sell_amount']:.2f} {report_currency})")
+                
+                if det["buys"]:
+                    buy_times = ", ".join([f"{b['time']} @ {b['price']:.2f}" for b in det["buys"]])
+                    lines.append(f"  Покупки: {buy_times}")
+                
+                if det["sells"]:
+                    sell_times = ", ".join([f"{s['time']} @ {s['price']:.2f}" for s in det["sells"]])
+                    lines.append(f"  Продажи: {sell_times}")
+                
+                if realized_pnl != 0:
+                    lines.append(f"  Реализованный P/L: {pnl_sign} {realized_pnl:.2f} {report_currency} ({realized_pnl_pct:+.2f}%)")
+                elif det["buys"] and not det["sells"]:
+                    lines.append(f"  Позиция открыта (средняя цена входа: {avg_buy_price:.2f} {report_currency})")
+
         if start_eq and end_eq:
             lines.append("")
-            lines.append("*Сверка (чтобы “дебет с кредитом” сошёлся):*")
+            lines.append('*Сверка (чтобы "дебет с кредитом" сошёлся):*')
             lines.append("Δ equity = Реализованный P/L + (Нереализованный P/L + комиссии/прочее).")
             lines.append(
                 f"{(end_eq-start_eq):.2f} {report_currency} = {realized:.2f} {report_currency} + {((end_eq-start_eq)-realized):.2f} {report_currency}"
@@ -1418,8 +1641,8 @@ class TradingBot:
 
         lines.append("")
         lines.append(
-            "Примечание про “упущенные сделки”: корректно считать можно только если логировать цены/сигналы и правило выхода. "
-            "Если хотите — добавлю расширенное логирование сигналов, и тогда /day сможет оценивать “упущенную прибыль/убыток”."
+            'Примечание про "упущенные сделки": корректно считать можно только если логировать цены/сигналы и правило выхода. '
+            'Если хотите — добавлю расширенное логирование сигналов, и тогда /day сможет оценивать "упущенную прибыль/убыток".'
         )
         return "\n".join(lines)
 
@@ -2690,8 +2913,7 @@ class TradingBot:
                         
                         # Дополнительное логирование в зависимости от типа ошибки
                         if error_reason == 'instrument_not_available':
-                            from datetime import datetime
-                            current_time_msk = datetime.now().strftime('%H:%M:%S MSK')
+                            current_time_msk = datetime.now(MSK_TZ).strftime('%H:%M:%S MSK')
                             logger.warning(f"   Время: {current_time_msk} | MOEX работает 10:00-18:45 MSK (основная сессия)")
                         elif error_reason == 'insufficient_balance':
                             logger.warning(f"   Баланс: cash={account_info.get('cash', 0):.2f}, equity={account_info.get('equity', 0):.2f}")
@@ -3402,8 +3624,7 @@ class TradingBot:
                                         f"Параметры: qty_lots={qty_lots}, price={current_price:.2f}, entry={entry_price:.2f}, stop={stop_level:.2f}")
                             
                             if error_reason == 'instrument_not_available':
-                                from datetime import datetime
-                                current_time_msk = datetime.now().strftime('%H:%M:%S MSK')
+                                current_time_msk = datetime.now(MSK_TZ).strftime('%H:%M:%S MSK')
                                 logger.warning(f"   Время: {current_time_msk} | MOEX работает 10:00-18:45 MSK (основная сессия)")
                             elif error_reason == 'insufficient_balance':
                                 logger.warning(f"   Позиция: qty_lots={qty_lots}, lot={lot}, qty_shares={qty_shares}")
@@ -3550,8 +3771,7 @@ class TradingBot:
                                         f"Параметры: qty_lots={qty_lots}, price={current_price:.2f}, entry={entry_price:.2f}, take={take_level:.2f}")
                             
                             if error_reason == 'instrument_not_available':
-                                from datetime import datetime
-                                current_time_msk = datetime.now().strftime('%H:%M:%S MSK')
+                                current_time_msk = datetime.now(MSK_TZ).strftime('%H:%M:%S MSK')
                                 logger.warning(f"   Время: {current_time_msk} | MOEX работает 10:00-18:45 MSK (основная сессия)")
                             elif error_reason == 'insufficient_balance':
                                 logger.warning(f"   Позиция: qty_lots={qty_lots}, lot={lot}, qty_shares={qty_shares}")
