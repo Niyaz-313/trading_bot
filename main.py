@@ -2550,7 +2550,13 @@ class TradingBot:
                     order = self.broker.place_market_order(symbol_for_api, qty_lots, 'sell')
                     if order:
                         # Безопасное извлечение скалярного значения confidence
-                        conf_val = float(analysis['confidence'].item() if isinstance(analysis['confidence'], pd.Series) else analysis['confidence'])
+                        try:
+                            if isinstance(analysis['confidence'], pd.Series):
+                                conf_val = float(analysis['confidence'].iloc[0] if len(analysis['confidence']) > 0 else analysis['confidence'].values[0])
+                            else:
+                                conf_val = float(analysis['confidence'])
+                        except (IndexError, AttributeError, ValueError, TypeError):
+                            conf_val = float(analysis.get('confidence', 0) or 0)
                         reason = f"Сигнал продажи (уверенность: {conf_val*100:.1f}%)"
                         currency = (account_info.get("currency") or "RUB")
                         currency_symbol = {"RUB": "₽", "USD": "$", "EUR": "€"}.get(str(currency).upper(), str(currency).upper() + " ")
@@ -2873,7 +2879,13 @@ class TradingBot:
                     order = self.broker.place_market_order(symbol, qty_lots, 'buy')
                     if order:
                         # Безопасное извлечение скалярного значения confidence
-                        conf_val = float(analysis['confidence'].item() if isinstance(analysis['confidence'], pd.Series) else analysis['confidence'])
+                        try:
+                            if isinstance(analysis['confidence'], pd.Series):
+                                conf_val = float(analysis['confidence'].iloc[0] if len(analysis['confidence']) > 0 else analysis['confidence'].values[0])
+                            else:
+                                conf_val = float(analysis['confidence'])
+                        except (IndexError, AttributeError, ValueError, TypeError):
+                            conf_val = float(analysis.get('confidence', 0) or 0)
                         reason = f"Сигнал покупки (уверенность: {conf_val*100:.1f}%)"
                         currency = (instrument.get("currency") if instrument else None) or (account_info.get("currency") or "RUB")
                         currency_symbol = {"RUB": "₽", "USD": "$", "EUR": "€"}.get(str(currency).upper(), str(currency).upper() + " ")
