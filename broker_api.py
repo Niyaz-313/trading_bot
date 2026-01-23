@@ -154,9 +154,14 @@ class BrokerAPI:
         
         try:
             if isinstance(self.client, TInvestAPI):
-                return self.client.place_market_order(symbol, qty, side)
+                result = self.client.place_market_order(symbol, qty, side)
+                # Если ордер не размещён, получаем детали ошибки из клиента
+                if result is None and hasattr(self.client, '_last_order_error'):
+                    error_details = self.client._last_order_error
+                    logger.debug(f"Детали ошибки размещения ордера для {symbol}: {error_details}")
+                return result
         except Exception as e:
-            logger.error(f"Ошибка размещения ордера для {symbol}: {e}")
+            logger.error(f"❌ КРИТИЧЕСКАЯ ОШИБКА при размещении ордера для {symbol}: {e}", exc_info=True)
             return None
     
     def place_limit_order(self, symbol: str, qty: int, side: str, limit_price: float) -> Optional[Dict]:

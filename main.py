@@ -81,6 +81,45 @@ def _canon_symbol(sym: str) -> str:
     except Exception:
         return s
 
+def _is_trading_session_open() -> tuple[bool, str]:
+    """
+    Проверяет, открыта ли торговая сессия MOEX.
+    
+    Returns:
+        tuple[bool, str]: (is_open, reason)
+        - is_open: True если сессия открыта, False иначе
+        - reason: причина (для логирования)
+    """
+    try:
+        # Получаем текущее время в MSK
+        msk_tz = ZoneInfo("Europe/Moscow")
+        now_msk = datetime.now(msk_tz)
+        current_time = now_msk.time()
+        current_weekday = now_msk.weekday()  # 0 = Monday, 6 = Sunday
+        
+        # MOEX работает: пн-пт, 10:00-18:45 MSK (основная сессия)
+        # Также есть вечерняя сессия 19:00-23:50, но для большинства инструментов основная сессия важнее
+        session_start = datetime.strptime("10:00", "%H:%M").time()
+        session_end = datetime.strptime("18:45", "%H:%M").time()
+        
+        # Проверка дня недели (0-4 = пн-пт)
+        if current_weekday >= 5:  # Суббота или воскресенье
+            return False, f"выходной день (weekday={current_weekday})"
+        
+        # Проверка времени
+        if current_time < session_start:
+            return False, f"до начала сессии (текущее время: {current_time.strftime('%H:%M')} MSK, сессия: {session_start.strftime('%H:%M')}-{session_end.strftime('%H:%M')} MSK)"
+        
+        if current_time > session_end:
+            return False, f"после окончания сессии (текущее время: {current_time.strftime('%H:%M')} MSK, сессия: {session_start.strftime('%H:%M')}-{session_end.strftime('%H:%M')} MSK)"
+        
+        return True, "сессия открыта"
+    except Exception as e:
+        logger.warning(f"Ошибка при проверке торговой сессии: {e}")
+        # В случае ошибки считаем, что сессия открыта (не блокируем торговлю)
+        return True, f"ошибка проверки (разрешаем торговлю): {e}"
+
+
 def _ensure_ticker_not_figi(symbol: str, broker_api) -> str:
     """
     Убедиться, что symbol является тикером, а не FIGI.
@@ -878,10 +917,57 @@ class TradingBot:
         if not ENABLE_TRADING:
             return
 
+        # Проверка торговой сессии перед размещением ордера
+        is_session_open, session_reason = _is_trading_session_open()
+        if not is_session_open:
+            logger.warning(f"⚠️ Пропуск размещения ордера на покупку {symbol}: {session_reason}")
+            self._audit_event({
+                "event": "skip",
+                "symbol": symbol,
+                "skip_reason": "trading_session_closed",
+                "price": float(current_price),
+                "confidence": float(analysis.get("confidence", 0) or 0),
+                "equity": float(account_info.get("equity", 0) or 0),
+                "cash": float(account_info.get("cash", 0) or 0),
+                "open_positions": int(len({id(v) for v in (open_positions or {}).values()})) if open_positions is not None else 0,
+                "trades_today_buy": int(self.trades_today),
+                "details": {
+                    "reason": session_reason,
+                    "qty_lots": int(qty_lots),
+                    "lot": int(lot),
+                    "rank": int(rank),
+                    "score": float(score),
+                },
+            })
+            return
+
         order = self.broker.place_market_order(symbol, qty_lots, 'buy')
         if not order:
-            # КРИТИЧНО: Логируем почему не удалось разместить заявку
-            logger.error(f"❌ НЕ УДАЛОСЬ РАЗМЕСТИТЬ ЗАЯВКУ: {symbol}, qty_lots={qty_lots}, price={current_price:.2f}, reason=place_market_order вернул None")
+            # Получаем детальную информацию об ошибке
+            error_details = {}
+            if hasattr(self.broker, 'client') and hasattr(self.broker.client, '_last_order_error'):
+                error_details = self.broker.client._last_order_error.copy() if self.broker.client._last_order_error else {}
+            
+            # Формируем детальное сообщение об ошибке
+            error_reason = error_details.get('reason', 'unknown')
+            error_code = error_details.get('error_code', 'N/A')
+            error_description = error_details.get('description', 'place_market_order returned None')
+            
+            logger.error(f"❌ НЕ УДАЛОСЬ РАЗМЕСТИТЬ ЗАЯВКУ НА ПОКУПКУ: {symbol} | "
+                        f"Причина: {error_reason} | Код ошибки: {error_code} | "
+                        f"Описание: {error_description} | "
+                        f"Параметры: qty_lots={qty_lots}, price={current_price:.2f}, lot={lot}, "
+                        f"figi={instrument.get('figi') if instrument else 'N/A'}, "
+                        f"instrument_ok={instrument is not None}")
+            
+            # Дополнительное логирование в зависимости от типа ошибки
+            if error_reason == 'instrument_not_available':
+                from datetime import datetime
+                current_time_msk = datetime.now().strftime('%H:%M:%S MSK')
+                logger.warning(f"   Время: {current_time_msk} | MOEX работает 10:00-18:45 MSK (основная сессия)")
+            elif error_reason == 'insufficient_balance':
+                logger.warning(f"   Баланс: cash={account_info.get('cash', 0):.2f}, equity={account_info.get('equity', 0):.2f}")
+            
             self._audit_event({
                 "event": "skip",
                 "symbol": symbol,
@@ -893,13 +979,17 @@ class TradingBot:
                 "open_positions": int(len({id(v) for v in (open_positions or {}).values()})) if open_positions is not None else 0,
                 "trades_today_buy": int(self.trades_today),
                 "details": {
-                    "reason": "place_market_order returned None",
+                    "reason": error_reason,
+                    "error_code": error_code,
+                    "error_description": error_description,
+                    "error_type": error_details.get('error_type', 'unknown'),
                     "qty_lots": int(qty_lots),
                     "lot": int(lot),
                     "rank": int(rank),
                     "score": float(score),
                     "instrument_ok": instrument is not None,
                     "figi": instrument.get("figi") if instrument else None,
+                    **{k: v for k, v in error_details.items() if k not in ['reason', 'error_code', 'error_description', 'error_type']}
                 },
             })
             return
@@ -2534,6 +2624,12 @@ class TradingBot:
                     return
                 
                 if qty_lots > 0 and ENABLE_TRADING:
+                    # Проверка торговой сессии перед размещением ордера
+                    is_session_open, session_reason = _is_trading_session_open()
+                    if not is_session_open:
+                        logger.warning(f"⚠️ Пропуск размещения ордера на продажу {symbol}: {session_reason}")
+                        return
+                    
                     # Убеждаемся, что symbol является тикером, а не FIGI
                     symbol_for_api = _ensure_ticker_not_figi(symbol, self.broker)
                     instrument = self.broker.get_instrument_details(symbol_for_api)
@@ -2548,6 +2644,56 @@ class TradingBot:
                             logger.debug(f"Инструмент {symbol} (SELL) имеет флаги: trading_status={st}, api_ok={api_ok}, sell_ok={sell_ok} - продолжим попытку размещения ордера")
                     # Используем symbol_for_api для размещения ордера
                     order = self.broker.place_market_order(symbol_for_api, qty_lots, 'sell')
+                    if not order:
+                        # Получаем детальную информацию об ошибке
+                        error_details = {}
+                        if hasattr(self.broker, 'client') and hasattr(self.broker.client, '_last_order_error'):
+                            error_details = self.broker.client._last_order_error.copy() if self.broker.client._last_order_error else {}
+                        
+                        # Формируем детальное сообщение об ошибке
+                        error_reason = error_details.get('reason', 'unknown')
+                        error_code = error_details.get('error_code', 'N/A')
+                        error_description = error_details.get('description', 'place_market_order returned None')
+                        
+                        logger.error(f"❌ НЕ УДАЛОСЬ РАЗМЕСТИТЬ ЗАЯВКУ НА ПРОДАЖУ: {symbol} | "
+                                    f"Причина: {error_reason} | Код ошибки: {error_code} | "
+                                    f"Описание: {error_description} | "
+                                    f"Параметры: qty_lots={qty_lots}, price={current_price:.2f}, lot={lot}, "
+                                    f"figi={instrument.get('figi') if instrument else 'N/A'}, "
+                                    f"instrument_ok={instrument is not None}")
+                        
+                        # Дополнительное логирование в зависимости от типа ошибки
+                        if error_reason == 'instrument_not_available':
+                            from datetime import datetime
+                            current_time_msk = datetime.now().strftime('%H:%M:%S MSK')
+                            logger.warning(f"   Время: {current_time_msk} | MOEX работает 10:00-18:45 MSK (основная сессия)")
+                        elif error_reason == 'insufficient_balance':
+                            logger.warning(f"   Баланс: cash={account_info.get('cash', 0):.2f}, equity={account_info.get('equity', 0):.2f}")
+                            logger.warning(f"   Позиция: qty_lots={qty_lots}, lot={lot}, qty_shares={qty_lots * lot}")
+                        
+                        self._audit_event({
+                            "event": "skip",
+                            "symbol": symbol,
+                            "skip_reason": "order_placement_failed",
+                            "price": float(current_price),
+                            "confidence": float(analysis.get("confidence", 0) or 0),
+                            "equity": float(account_info.get("equity", 0) or 0),
+                            "cash": float(account_info.get("cash", 0) or 0),
+                            "open_positions": int(len({id(v) for v in (open_positions or {}).values()})) if open_positions is not None else 0,
+                            "trades_today_buy": int(self.trades_today),
+                            "details": {
+                                "reason": error_reason,
+                                "error_code": error_code,
+                                "error_description": error_description,
+                                "error_type": error_details.get('error_type', 'unknown'),
+                                "qty_lots": int(qty_lots),
+                                "lot": int(lot),
+                                "instrument_ok": instrument is not None,
+                                "figi": instrument.get("figi") if instrument else None,
+                                **{k: v for k, v in error_details.items() if k not in ['reason', 'error_code', 'error_description', 'error_type']}
+                            },
+                        })
+                        return
                     if order:
                         # Безопасное извлечение скалярного значения confidence
                         try:
@@ -3206,6 +3352,29 @@ class TradingBot:
                         
                         logger.info(f"Размещение ордера на продажу (стоп-лосс): {order_symbol}, {qty_lots} лотов")
                         order = self.broker.place_market_order(order_symbol, qty_lots, 'sell')
+                        if not order:
+                            # Получаем детальную информацию об ошибке
+                            error_details = {}
+                            if hasattr(self.broker, 'client') and hasattr(self.broker.client, '_last_order_error'):
+                                error_details = self.broker.client._last_order_error.copy() if self.broker.client._last_order_error else {}
+                            
+                            error_reason = error_details.get('reason', 'unknown')
+                            error_code = error_details.get('error_code', 'N/A')
+                            error_description = error_details.get('description', 'place_market_order returned None')
+                            
+                            logger.error(f"❌ НЕ УДАЛОСЬ РАЗМЕСТИТЬ СТОП-ЛОСС: {symbol} | "
+                                        f"Причина: {error_reason} | Код ошибки: {error_code} | "
+                                        f"Описание: {error_description} | "
+                                        f"Параметры: qty_lots={qty_lots}, price={current_price:.2f}, entry={entry_price:.2f}, stop={stop_level:.2f}")
+                            
+                            if error_reason == 'instrument_not_available':
+                                from datetime import datetime
+                                current_time_msk = datetime.now().strftime('%H:%M:%S MSK')
+                                logger.warning(f"   Время: {current_time_msk} | MOEX работает 10:00-18:45 MSK (основная сессия)")
+                            elif error_reason == 'insufficient_balance':
+                                logger.warning(f"   Позиция: qty_lots={qty_lots}, lot={lot}, qty_shares={qty_shares}")
+                            
+                            continue
                         if order:
                             loss = (float(current_price) - float(entry_price)) * float(qty_shares)
                             ai = self.broker.get_account_info()
@@ -3327,6 +3496,29 @@ class TradingBot:
                         
                         logger.info(f"Размещение ордера на продажу (тейк-профит): {order_symbol}, {qty_lots} лотов")
                         order = self.broker.place_market_order(order_symbol, qty_lots, 'sell')
+                        if not order:
+                            # Получаем детальную информацию об ошибке
+                            error_details = {}
+                            if hasattr(self.broker, 'client') and hasattr(self.broker.client, '_last_order_error'):
+                                error_details = self.broker.client._last_order_error.copy() if self.broker.client._last_order_error else {}
+                            
+                            error_reason = error_details.get('reason', 'unknown')
+                            error_code = error_details.get('error_code', 'N/A')
+                            error_description = error_details.get('description', 'place_market_order returned None')
+                            
+                            logger.error(f"❌ НЕ УДАЛОСЬ РАЗМЕСТИТЬ ТЕЙК-ПРОФИТ: {symbol} | "
+                                        f"Причина: {error_reason} | Код ошибки: {error_code} | "
+                                        f"Описание: {error_description} | "
+                                        f"Параметры: qty_lots={qty_lots}, price={current_price:.2f}, entry={entry_price:.2f}, take={take_level:.2f}")
+                            
+                            if error_reason == 'instrument_not_available':
+                                from datetime import datetime
+                                current_time_msk = datetime.now().strftime('%H:%M:%S MSK')
+                                logger.warning(f"   Время: {current_time_msk} | MOEX работает 10:00-18:45 MSK (основная сессия)")
+                            elif error_reason == 'insufficient_balance':
+                                logger.warning(f"   Позиция: qty_lots={qty_lots}, lot={lot}, qty_shares={qty_shares}")
+                            
+                            continue
                         if order:
                             profit = (float(current_price) - float(entry_price)) * float(qty_shares)
                             ai = self.broker.get_account_info()
