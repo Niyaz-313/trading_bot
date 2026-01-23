@@ -30256,3 +30256,250 @@ UnboundLocalError: cannot access local variable 'datetime' where it is not assoc
 2026-01-23 12:04:48,282 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_PLDRUB_TOM_15m.csv (355 строк)
 2026-01-23 12:04:48,283 - tinvest_api - INFO - ✓ Получены исторические данные для PLDRUB_TOM: 355 свечей за период 2026-01-12 - 2026-01-23
 2026-01-23 12:04:50,918 - tinvest_api - INFO - Позиции: найдено 1 (account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, sandbox=True); portfolio_shares_total=0.00, portfolio_positions=1
+2026-01-23 12:05:27,797 - tinvest_api - INFO - ✓ Подключение к T-Invest API установлено (sandbox=True, SDK: official)
+2026-01-23 12:05:27,797 - broker_api - INFO - Подключение к T-Invest API установлено (sandbox=True)
+2026-01-23 12:05:28,081 - telegram_bot - INFO - Telegram бот инициализирован
+2026-01-23 12:05:28,085 - __main__ - INFO - Торговый бот инициализирован (брокер: tinvest)
+2026-01-23 12:05:31,950 - tinvest_api - INFO - Позиции: найдено 1 (account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, sandbox=True); portfolio_shares_total=0.00, portfolio_positions=1
+2026-01-23 12:05:32,206 - __main__ - INFO - Symbol Tracker инициализирован
+2026-01-23 12:05:32,206 - __main__ - INFO - Correlation Guard инициализирован (max 2 в группе)
+2026-01-23 12:05:32,206 - __main__ - INFO - Торговый бот запущен
+2026-01-23 12:05:35,400 - tinvest_api - INFO - Позиции: найдено 1 (account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, sandbox=True); portfolio_shares_total=0.00, portfolio_positions=1
+2026-01-23 12:05:35,416 - __main__ - INFO - Проверка просадки от пика: пик=195445.46, текущая=195445.46, просадка=0.00%, лимит=5.00%, allow_entries=True
+2026-01-23 12:05:36,065 - tinvest_api - INFO - Запрос данных для SBER с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:36,088 - tinvest_api - INFO - ✓ Получено 1 свечей для SBER
+2026-01-23 12:05:36,107 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_SBER_15m.csv (831 строк)
+2026-01-23 12:05:36,109 - tinvest_api - INFO - ✓ Получены исторические данные для SBER: 831 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:36,694 - tinvest_api - INFO - Запрос данных для GAZP с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:36,722 - tinvest_api - INFO - ✓ Получено 1 свечей для GAZP
+2026-01-23 12:05:36,730 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_GAZP_15m.csv (830 строк)
+2026-01-23 12:05:36,731 - tinvest_api - INFO - ✓ Получены исторические данные для GAZP: 830 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:37,466 - tinvest_api - INFO - Запрос данных для YNDX с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:37,484 - tinvest_api - INFO - ✓ Получено 1 свечей для YNDX
+2026-01-23 12:05:37,491 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_YNDX_15m.csv (830 строк)
+2026-01-23 12:05:37,492 - tinvest_api - INFO - ✓ Получены исторические данные для YNDX: 830 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:38,090 - tinvest_api - INFO - Запрос данных для VTBR с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:38,113 - tinvest_api - INFO - ✓ Получено 1 свечей для VTBR
+2026-01-23 12:05:38,121 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_VTBR_15m.csv (831 строк)
+2026-01-23 12:05:38,121 - tinvest_api - INFO - ✓ Получены исторические данные для VTBR: 831 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:38,692 - tinvest_api - INFO - Запрос данных для MOEX с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:38,717 - tinvest_api - INFO - ✓ Получено 1 свечей для MOEX
+2026-01-23 12:05:38,724 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_MOEX_15m.csv (820 строк)
+2026-01-23 12:05:38,725 - tinvest_api - INFO - ✓ Получены исторические данные для MOEX: 820 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:39,313 - tinvest_api - INFO - Запрос данных для LKOH с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:39,335 - tinvest_api - INFO - ✓ Получено 1 свечей для LKOH
+2026-01-23 12:05:39,342 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_LKOH_15m.csv (817 строк)
+2026-01-23 12:05:39,343 - tinvest_api - INFO - ✓ Получены исторические данные для LKOH: 817 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:39,996 - tinvest_api - INFO - Запрос данных для ROSN с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:40,017 - tinvest_api - INFO - ✓ Получено 1 свечей для ROSN
+2026-01-23 12:05:40,025 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_ROSN_15m.csv (819 строк)
+2026-01-23 12:05:40,026 - tinvest_api - INFO - ✓ Получены исторические данные для ROSN: 819 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:40,627 - tinvest_api - INFO - Запрос данных для NVTK с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:40,651 - tinvest_api - INFO - ✓ Получено 1 свечей для NVTK
+2026-01-23 12:05:40,658 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_NVTK_15m.csv (830 строк)
+2026-01-23 12:05:40,659 - tinvest_api - INFO - ✓ Получены исторические данные для NVTK: 830 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:41,214 - tinvest_api - INFO - Запрос данных для GMKN с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:41,235 - tinvest_api - INFO - ✓ Получено 1 свечей для GMKN
+2026-01-23 12:05:41,242 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_GMKN_15m.csv (826 строк)
+2026-01-23 12:05:41,242 - tinvest_api - INFO - ✓ Получены исторические данные для GMKN: 826 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:41,812 - tinvest_api - INFO - Запрос данных для TATN с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:41,830 - tinvest_api - INFO - ✓ Получено 1 свечей для TATN
+2026-01-23 12:05:41,838 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_TATN_15m.csv (828 строк)
+2026-01-23 12:05:41,839 - tinvest_api - INFO - ✓ Получены исторические данные для TATN: 828 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:42,472 - tinvest_api - INFO - Запрос данных для MGNT с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:42,491 - tinvest_api - INFO - ✓ Получено 1 свечей для MGNT
+2026-01-23 12:05:42,498 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_MGNT_15m.csv (809 строк)
+2026-01-23 12:05:42,499 - tinvest_api - INFO - ✓ Получены исторические данные для MGNT: 809 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:43,152 - tinvest_api - INFO - Запрос данных для AFLT с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:43,173 - tinvest_api - INFO - ✓ Получено 1 свечей для AFLT
+2026-01-23 12:05:43,180 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_AFLT_15m.csv (827 строк)
+2026-01-23 12:05:43,181 - tinvest_api - INFO - ✓ Получены исторические данные для AFLT: 827 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:43,806 - tinvest_api - INFO - Запрос данных для SNGS с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:43,829 - tinvest_api - INFO - ✓ Получено 1 свечей для SNGS
+2026-01-23 12:05:43,836 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_SNGS_15m.csv (798 строк)
+2026-01-23 12:05:43,837 - tinvest_api - INFO - ✓ Получены исторические данные для SNGS: 798 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:44,642 - tinvest_api - INFO - Запрос данных для SNGSP с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:44,663 - tinvest_api - INFO - ✓ Получено 1 свечей для SNGSP
+2026-01-23 12:05:44,672 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_SNGSP_15m.csv (826 строк)
+2026-01-23 12:05:44,673 - tinvest_api - INFO - ✓ Получены исторические данные для SNGSP: 826 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:45,450 - tinvest_api - INFO - Запрос данных для CHMF с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:45,478 - tinvest_api - INFO - ✓ Получено 1 свечей для CHMF
+2026-01-23 12:05:45,484 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_CHMF_15m.csv (816 строк)
+2026-01-23 12:05:45,485 - tinvest_api - INFO - ✓ Получены исторические данные для CHMF: 816 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:46,115 - tinvest_api - INFO - Запрос данных для NLMK с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:46,134 - tinvest_api - INFO - ✓ Получено 1 свечей для NLMK
+2026-01-23 12:05:46,142 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_NLMK_15m.csv (816 строк)
+2026-01-23 12:05:46,143 - tinvest_api - INFO - ✓ Получены исторические данные для NLMK: 816 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:46,806 - tinvest_api - INFO - Запрос данных для MAGN с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:46,876 - tinvest_api - INFO - ✓ Получено 1 свечей для MAGN
+2026-01-23 12:05:46,883 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_MAGN_15m.csv (824 строк)
+2026-01-23 12:05:46,884 - tinvest_api - INFO - ✓ Получены исторические данные для MAGN: 824 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:47,640 - tinvest_api - INFO - Запрос данных для MTSS с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:47,663 - tinvest_api - INFO - ✓ Получено 1 свечей для MTSS
+2026-01-23 12:05:47,671 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_MTSS_15m.csv (817 строк)
+2026-01-23 12:05:47,673 - tinvest_api - INFO - ✓ Получены исторические данные для MTSS: 817 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:48,283 - tinvest_api - INFO - Запрос данных для IRAO с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:48,312 - tinvest_api - INFO - ✓ Получено 1 свечей для IRAO
+2026-01-23 12:05:48,319 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_IRAO_15m.csv (829 строк)
+2026-01-23 12:05:48,320 - tinvest_api - INFO - ✓ Получены исторические данные для IRAO: 829 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:49,086 - tinvest_api - INFO - Запрос данных для ALRS с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:49,113 - tinvest_api - INFO - ✓ Получено 1 свечей для ALRS
+2026-01-23 12:05:49,122 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_ALRS_15m.csv (816 строк)
+2026-01-23 12:05:49,122 - tinvest_api - INFO - ✓ Получены исторические данные для ALRS: 816 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:49,688 - tinvest_api - INFO - Запрос данных для PHOR с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:49,710 - tinvest_api - INFO - ✓ Получено 1 свечей для PHOR
+2026-01-23 12:05:49,717 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_PHOR_15m.csv (788 строк)
+2026-01-23 12:05:49,718 - tinvest_api - INFO - ✓ Получены исторические данные для PHOR: 788 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:50,366 - tinvest_api - INFO - Запрос данных для PLZL с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:50,386 - tinvest_api - INFO - ✓ Получено 1 свечей для PLZL
+2026-01-23 12:05:50,394 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_PLZL_15m.csv (826 строк)
+2026-01-23 12:05:50,395 - tinvest_api - INFO - ✓ Получены исторические данные для PLZL: 826 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:51,017 - tinvest_api - INFO - Запрос данных для RUAL с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:51,038 - tinvest_api - INFO - ✓ Получено 1 свечей для RUAL
+2026-01-23 12:05:51,045 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_RUAL_15m.csv (823 строк)
+2026-01-23 12:05:51,046 - tinvest_api - INFO - ✓ Получены исторические данные для RUAL: 823 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:51,646 - tinvest_api - INFO - Запрос данных для AFKS с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:51,666 - tinvest_api - INFO - ✓ Получено 1 свечей для AFKS
+2026-01-23 12:05:51,673 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_AFKS_15m.csv (816 строк)
+2026-01-23 12:05:51,674 - tinvest_api - INFO - ✓ Получены исторические данные для AFKS: 816 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:52,307 - tinvest_api - INFO - Запрос данных для TRNFP с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:52,349 - tinvest_api - INFO - ✓ Получено 1 свечей для TRNFP
+2026-01-23 12:05:52,357 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_TRNFP_15m.csv (822 строк)
+2026-01-23 12:05:52,358 - tinvest_api - INFO - ✓ Получены исторические данные для TRNFP: 822 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:53,075 - tinvest_api - INFO - Запрос данных для SIBN с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:53,095 - tinvest_api - INFO - ✓ Получено 1 свечей для SIBN
+2026-01-23 12:05:53,103 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_SIBN_15m.csv (816 строк)
+2026-01-23 12:05:53,103 - tinvest_api - INFO - ✓ Получены исторические данные для SIBN: 816 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:53,741 - tinvest_api - INFO - Запрос данных для FLOT с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:53,787 - tinvest_api - INFO - ✓ Получено 1 свечей для FLOT
+2026-01-23 12:05:53,794 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_FLOT_15m.csv (793 строк)
+2026-01-23 12:05:53,795 - tinvest_api - INFO - ✓ Получены исторические данные для FLOT: 793 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:54,611 - tinvest_api - INFO - Запрос данных для BANE с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:54,638 - tinvest_api - INFO - ✓ Получено 1 свечей для BANE
+2026-01-23 12:05:54,646 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_BANE_15m.csv (670 строк)
+2026-01-23 12:05:54,647 - tinvest_api - INFO - ✓ Получены исторические данные для BANE: 670 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:55,226 - tinvest_api - INFO - Запрос данных для BANEP с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:55,246 - tinvest_api - INFO - ✓ Получено 1 свечей для BANEP
+2026-01-23 12:05:55,255 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_BANEP_15m.csv (776 строк)
+2026-01-23 12:05:55,256 - tinvest_api - INFO - ✓ Получены исторические данные для BANEP: 776 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:55,887 - tinvest_api - INFO - Запрос данных для RNFT с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:55,907 - tinvest_api - INFO - ✓ Получено 1 свечей для RNFT
+2026-01-23 12:05:55,915 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_RNFT_15m.csv (816 строк)
+2026-01-23 12:05:55,915 - tinvest_api - INFO - ✓ Получены исторические данные для RNFT: 816 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:56,603 - tinvest_api - INFO - Запрос данных для TATNP с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:56,622 - tinvest_api - INFO - ✓ Получено 1 свечей для TATNP
+2026-01-23 12:05:56,629 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_TATNP_15m.csv (824 строк)
+2026-01-23 12:05:56,631 - tinvest_api - INFO - ✓ Получены исторические данные для TATNP: 824 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:57,245 - tinvest_api - INFO - Запрос данных для SELG с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:57,268 - tinvest_api - INFO - ✓ Получено 1 свечей для SELG
+2026-01-23 12:05:57,276 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_SELG_15m.csv (814 строк)
+2026-01-23 12:05:57,277 - tinvest_api - INFO - ✓ Получены исторические данные для SELG: 814 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:57,883 - tinvest_api - INFO - Запрос данных для UGLD с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:57,964 - tinvest_api - INFO - ✓ Получено 1 свечей для UGLD
+2026-01-23 12:05:57,971 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_UGLD_15m.csv (729 строк)
+2026-01-23 12:05:57,972 - tinvest_api - INFO - ✓ Получены исторические данные для UGLD: 729 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:58,589 - tinvest_api - INFO - Запрос данных для LNZL с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:58,611 - tinvest_api - INFO - ✓ Получено 1 свечей для LNZL
+2026-01-23 12:05:58,618 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_LNZL_15m.csv (600 строк)
+2026-01-23 12:05:58,620 - tinvest_api - INFO - ✓ Получены исторические данные для LNZL: 600 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:05:59,259 - tinvest_api - INFO - Запрос данных для USD000UTSTOM с 2026-01-22 по 2026-01-23
+2026-01-23 12:05:59,282 - tinvest_api - INFO - ✓ Получено 1 свечей для USD000UTSTOM
+2026-01-23 12:05:59,287 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_USD000UTSTOM_15m.csv (9 строк)
+2026-01-23 12:05:59,288 - tinvest_api - INFO - ✓ Получены исторические данные для USD000UTSTOM: 9 свечей за период 2026-01-12 - 2026-01-22
+2026-01-23 12:05:59,945 - tinvest_api - INFO - Запрос данных для CNYRUB_TOM с 2026-01-23 по 2026-01-23
+2026-01-23 12:05:59,970 - tinvest_api - INFO - ✓ Получено 1 свечей для CNYRUB_TOM
+2026-01-23 12:05:59,976 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_CNYRUB_TOM_15m.csv (355 строк)
+2026-01-23 12:05:59,976 - tinvest_api - INFO - ✓ Получены исторические данные для CNYRUB_TOM: 355 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:06:00,605 - tinvest_api - INFO - Запрос данных для GLDRUB_TOM с 2026-01-23 по 2026-01-23
+2026-01-23 12:06:00,625 - tinvest_api - INFO - ✓ Получено 1 свечей для GLDRUB_TOM
+2026-01-23 12:06:00,632 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_GLDRUB_TOM_15m.csv (355 строк)
+2026-01-23 12:06:00,633 - tinvest_api - INFO - ✓ Получены исторические данные для GLDRUB_TOM: 355 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:06:01,473 - tinvest_api - INFO - Запрос данных для SLVRUB_TOM с 2026-01-23 по 2026-01-23
+2026-01-23 12:06:01,498 - tinvest_api - INFO - ✓ Получено 1 свечей для SLVRUB_TOM
+2026-01-23 12:06:01,503 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_SLVRUB_TOM_15m.csv (355 строк)
+2026-01-23 12:06:01,504 - tinvest_api - INFO - ✓ Получены исторические данные для SLVRUB_TOM: 355 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:06:02,188 - tinvest_api - INFO - Запрос данных для PLTRUB_TOM с 2026-01-23 по 2026-01-23
+2026-01-23 12:06:02,210 - tinvest_api - INFO - ✓ Получено 1 свечей для PLTRUB_TOM
+2026-01-23 12:06:02,216 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_PLTRUB_TOM_15m.csv (354 строк)
+2026-01-23 12:06:02,218 - tinvest_api - INFO - ✓ Получены исторические данные для PLTRUB_TOM: 354 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:06:02,894 - tinvest_api - INFO - Запрос данных для PLDRUB_TOM с 2026-01-23 по 2026-01-23
+2026-01-23 12:06:02,915 - tinvest_api - INFO - ✓ Получено 1 свечей для PLDRUB_TOM
+2026-01-23 12:06:02,922 - tinvest_api - INFO - ✓ Кэш обновлён: data_cache/tinvest_sandbox/candles_PLDRUB_TOM_15m.csv (355 строк)
+2026-01-23 12:06:02,923 - tinvest_api - INFO - ✓ Получены исторические данные для PLDRUB_TOM: 355 свечей за период 2026-01-12 - 2026-01-23
+2026-01-23 12:06:06,445 - tinvest_api - INFO - Позиции: найдено 1 (account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, sandbox=True); portfolio_shares_total=0.00, portfolio_positions=1
+2026-01-23 12:06:06,705 - telegram.ext.Application - INFO - Application started
+2026-01-23 12:06:06,754 - telegram_bot - INFO - Telegram: polling запущен и готов принимать нажатия кнопок.
+2026-01-23 12:06:06,920 - telegram_bot - INFO - Telegram: нажата кнопка CTL_TRADES (chat_id=799178017, message_id=513)
+2026-01-23 12:06:06,976 - telegram_bot - ERROR - Telegram: ошибка обработчика: Query is too old and response timeout expired or query id is invalid
+Traceback (most recent call last):
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/ext/_application.py", line 1315, in process_update
+    await coroutine
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/ext/_handlers/basehandler.py", line 159, in handle_update
+    return await self.callback(update, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/telegram_bot.py", line 366, in _on_callback
+    await query.answer()
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/_callbackquery.py", line 189, in answer
+    return await self.get_bot().answer_callback_query(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 972, in answer_callback_query
+    return await super().answer_callback_query(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 4360, in answer_callback_query
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.BadRequest: Query is too old and response timeout expired or query id is invalid
+2026-01-23 12:06:07,015 - telegram_bot - INFO - Telegram: нажата кнопка CTL_PORTFOLIO (chat_id=799178017, message_id=513)
+2026-01-23 12:06:07,073 - telegram_bot - ERROR - Telegram: ошибка обработчика: Query is too old and response timeout expired or query id is invalid
+Traceback (most recent call last):
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/ext/_application.py", line 1315, in process_update
+    await coroutine
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/ext/_handlers/basehandler.py", line 159, in handle_update
+    return await self.callback(update, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/telegram_bot.py", line 366, in _on_callback
+    await query.answer()
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/_callbackquery.py", line 189, in answer
+    return await self.get_bot().answer_callback_query(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 972, in answer_callback_query
+    return await super().answer_callback_query(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 4360, in answer_callback_query
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 703, in _post
+    return await self._do_post(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/ext/_extbot.py", line 372, in _do_post
+    return await super()._do_post(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/_bot.py", line 732, in _do_post
+    result = await request.post(
+             ^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 198, in post
+    result = await self._request_wrapper(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/botuser/trading_bot/trading_bot/venv/lib/python3.12/site-packages/telegram/request/_baserequest.py", line 375, in _request_wrapper
+    raise exception
+telegram.error.BadRequest: Query is too old and response timeout expired or query id is invalid
+2026-01-23 12:06:07,074 - telegram_bot - INFO - Telegram: нажата кнопка CTL_PORTFOLIO (chat_id=799178017, message_id=513)
+2026-01-23 12:06:09,722 - tinvest_api - INFO - Позиции: найдено 1 (account_id=5884fdcc-9f73-4f47-8a1b-0a87cd3d3749, sandbox=True); portfolio_shares_total=0.00, portfolio_positions=1
+2026-01-23 12:06:09,734 - __main__ - INFO - Telegram PORTFOLIO: positions=1, open_orders=0
+2026-01-23 12:06:16,753 - telegram_bot - INFO - Telegram: нажата кнопка CTL_STATUS (chat_id=799178017, message_id=513)
+2026-01-23 12:06:19,691 - telegram_bot - WARNING - Telegram: CTL_STATUS — ошибка Markdown, повторяем без разметки: Can't parse entities: can't find end of the entity starting at byte offset 549
+2026-01-23 12:06:23,076 - telegram_bot - INFO - Telegram: нажата кнопка CTL_TRADES (chat_id=799178017, message_id=513)
