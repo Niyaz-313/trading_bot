@@ -52,3 +52,5 @@ sudo systemctl restart trading-bot.service
 - ✅ PLTRUB_TOM вместо BBGPLTRUBTOM
 - ✅ И другие валютные пары
 
+
+

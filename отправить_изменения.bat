@@ -52,3 +52,5 @@ echo   3. sudo systemctl restart trading-bot.service
 echo.
 pause
 
+
+

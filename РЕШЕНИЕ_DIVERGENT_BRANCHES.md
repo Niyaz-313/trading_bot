@@ -55,3 +55,5 @@ git pull origin main --no-rebase
 Если конфликтов нет - готово!
 Если есть конфликты - разрешите их как раньше (stash или checkout --theirs для логов).
 
+
+

@@ -81,3 +81,10 @@ sudo journalctl -u trading-bot.service -n 50 | grep -i error
 cd /home/botuser/trading_bot/trading_bot && git pull origin main && chmod +x server_update.sh && ./server_update.sh
 
 ========================================
+
+БЫСТРАЯ КОМАНДА (ВСЕ В ОДНОЙ СТРОКЕ)
+========================================
+
+cd /home/botuser/trading_bot/trading_bot && git pull origin main && chmod +x server_update.sh && ./server_update.sh
+
+========================================

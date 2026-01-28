@@ -140,8 +140,32 @@ class TrendFollowingStrategy(BaseStrategy):
 
     def analyze(self, data: pd.DataFrame) -> Dict:
         base = self._ta.analyze(data)
+        # Если base - не словарь, преобразуем его
+        if not isinstance(base, dict):
+            if hasattr(base, 'to_dict'):
+                base = base.to_dict()
+            elif hasattr(base, '__dict__'):
+                base = dict(base.__dict__)
+            else:
+                base = dict(base) if hasattr(base, 'get') else {}
+        
+        # Получаем signal безопасно (может быть Series или другой тип)
+        base_signal = base.get("signal")
+        if isinstance(base_signal, pd.Series):
+            base_signal = str(base_signal.iloc[-1]) if len(base_signal) > 0 else "hold"
+        elif hasattr(base_signal, '__iter__') and not isinstance(base_signal, str):
+            # Если это итерируемый объект, но не строка
+            try:
+                base_signal = str(list(base_signal)[-1]) if len(list(base_signal)) > 0 else "hold"
+            except:
+                base_signal = "hold"
+        elif base_signal is None:
+            base_signal = "hold"
+        else:
+            base_signal = str(base_signal)
+        
         # Если данных мало — возвращаем base
-        if base.get("confidence", 0.0) == 0.0 and base.get("signal") == "hold":
+        if base.get("confidence", 0.0) == 0.0 and base_signal == "hold":
             return base
 
         trend = base.get("trend")
@@ -166,7 +190,7 @@ class TrendFollowingStrategy(BaseStrategy):
             buy = 1
             conf = 0.6
             # усиливаем, если совпадает с гибридным buy
-            if base.get("signal") == "buy":
+            if base_signal == "buy":
                 buy += 1
                 conf = max(conf, base.get("confidence", 0.0))
 
@@ -174,7 +198,7 @@ class TrendFollowingStrategy(BaseStrategy):
         if trend == "down" or (macd_hist is not None and macd_hist < 0 and trend != "up"):
             sell = 1
             conf = max(conf, 0.55)
-            if base.get("signal") == "sell":
+            if base_signal == "sell":
                 sell += 1
                 conf = max(conf, base.get("confidence", 0.0))
 
@@ -232,6 +256,10 @@ class MeanReversionStrategy(BaseStrategy):
 
         # Используем базовые индикаторы из TradingStrategy
         base = self._ta.analyze(data)
+        # Если base - не словарь, преобразуем его
+        if not isinstance(base, dict):
+            base = dict(base) if hasattr(base, 'get') else {}
+        
         rsi = base.get("rsi")
         macd_hist = base.get("macd_hist")
         trend = base.get("trend")
@@ -323,8 +351,35 @@ class EnsembleStrategy(BaseStrategy):
         trend = by_name.get("trend", {"signal": "hold", "confidence": 0.0})
         mean = by_name.get("mean", {"signal": "hold", "confidence": 0.0})
 
+        # Безопасное получение signal (может быть Series)
+        def safe_get_signal(d: Dict) -> str:
+            if not isinstance(d, dict):
+                if hasattr(d, 'to_dict'):
+                    d = d.to_dict()
+                elif hasattr(d, '__dict__'):
+                    d = dict(d.__dict__)
+                else:
+                    return "hold"
+            sig = d.get("signal")
+            if isinstance(sig, pd.Series):
+                sig = str(sig.iloc[-1]) if len(sig) > 0 else "hold"
+            elif hasattr(sig, '__iter__') and not isinstance(sig, str):
+                try:
+                    sig = str(list(sig)[-1]) if len(list(sig)) > 0 else "hold"
+                except:
+                    sig = "hold"
+            elif sig is None:
+                sig = "hold"
+            else:
+                sig = str(sig)
+            return sig
+        
+        hybrid_signal = safe_get_signal(hybrid)
+        trend_signal = safe_get_signal(trend)
+        mean_signal = safe_get_signal(mean)
+
         # Считаем голоса (для информации/логов)
-        sigs = [hybrid.get("signal"), trend.get("signal"), mean.get("signal")]
+        sigs = [hybrid_signal, trend_signal, mean_signal]
         buy_votes = sum(1 for s in sigs if s == "buy")
         sell_votes = sum(1 for s in sigs if s == "sell")
 
@@ -333,12 +388,12 @@ class EnsembleStrategy(BaseStrategy):
         # - trend/mean могут только запретить BUY, если они считают, что это SELL/опасно
         # Это устраняет ситуацию, когда ансамбль ухудшает результат относительно hybrid.
         base = dict(hybrid)
-        base["subsignals"] = {"hybrid": hybrid.get("signal"), "trend": trend.get("signal"), "mean": mean.get("signal")}
+        base["subsignals"] = {"hybrid": hybrid_signal, "trend": trend_signal, "mean": mean_signal}
         base["buy_signals"] = buy_votes
         base["sell_signals"] = sell_votes
-
-        if hybrid.get("signal") == "buy":
-            if trend.get("signal") == "sell" or mean.get("signal") == "sell":
+        
+        if hybrid_signal == "buy":
+            if trend_signal == "sell" or mean_signal == "sell":
                 base["signal"] = "hold"
                 base["confidence"] = 0.0
                 return base
@@ -346,7 +401,7 @@ class EnsembleStrategy(BaseStrategy):
             base["confidence"] = float(hybrid.get("confidence", 0.0) or 0.0)
             return base
 
-        if hybrid.get("signal") == "sell":
+        if hybrid_signal == "sell":
             base["signal"] = "sell"
             base["confidence"] = float(hybrid.get("confidence", 0.0) or 0.0)
             return base

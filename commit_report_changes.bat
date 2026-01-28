@@ -39,3 +39,5 @@ echo ========================================
 echo Next on server: cd /home/botuser/trading_bot/trading_bot && ./server_update.sh
 pause
 
+
+

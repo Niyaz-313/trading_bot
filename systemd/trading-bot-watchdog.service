@@ -9,3 +9,25 @@ User=botuser
 WorkingDirectory=/home/botuser/trading_bot/trading_bot
 ExecStart=/bin/bash /home/botuser/trading_bot/trading_bot/scripts/watchdog_trading_bot.sh
 
+Description=Trading Bot Watchdog (Telegram notify on stop/fail)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=botuser
+WorkingDirectory=/home/botuser/trading_bot/trading_bot
+ExecStart=/bin/bash /home/botuser/trading_bot/trading_bot/scripts/watchdog_trading_bot.sh
+
+Description=Trading Bot Watchdog (Telegram notify on stop/fail)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=botuser
+WorkingDirectory=/home/botuser/trading_bot/trading_bot
+ExecStart=/bin/bash /home/botuser/trading_bot/trading_bot/scripts/watchdog_trading_bot.sh
+
+
+

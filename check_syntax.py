@@ -19,3 +19,5 @@ except Exception as e:
     print(f"❌ Ошибка: {e}")
     sys.exit(1)
 
+
+

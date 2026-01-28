@@ -1,6 +1,6 @@
 """
 Smoke-test для исторических данных:
-- проверяет, что свечи по каждому тикеру реально получаются из T‑Invest
+- проверяет, что свечи по каждому тикеру реально получаются из T-Invest
 - печатает краткую сводку по диапазону дат/кол-ву свечей/дубликатам/пропускам
 - (опционально) запускает backtest.py программно для оценки метрик стратегии
 
@@ -27,7 +27,7 @@ from config import (
 )
 
 
-# Windows-консоли иногда не UTF‑8 → защитимся
+# Windows-консоли иногда не UTF-8 → защитимся
 try:
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")
@@ -86,7 +86,7 @@ def _count_gaps(idx: pd.DatetimeIndex, expected: pd.Timedelta | None) -> int:
     if len(idx) < 3:
         return 0
     diffs = idx.to_series().diff().dropna()
-    # “gap” = шаг больше чем 2x ожидаемого (на дневках будут выходные/праздники → там лучше не считать)
+    # "gap" = шаг больше чем 2x ожидаемого (на дневках будут выходные/праздники → там лучше не считать)
     if expected >= pd.Timedelta(days=1):
         return 0
     return int((diffs > expected * 2).sum())
@@ -213,7 +213,7 @@ def main() -> int:
     print(f"daily-check:    interval=1d period={args.daily_period}")
 
     if BROKER != "tinvest":
-        print("✗ BROKER != tinvest. Этот тест рассчитан на T‑Invest.")
+        print("✗ BROKER != tinvest. Этот тест рассчитан на T-Invest.")
         return 2
 
     token_str = str(TINVEST_TOKEN or "").strip().lower()
@@ -279,5 +279,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
-
