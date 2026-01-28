@@ -597,3 +597,4 @@ sudo journalctl -u trading-bot.service -f
 
 
 
+

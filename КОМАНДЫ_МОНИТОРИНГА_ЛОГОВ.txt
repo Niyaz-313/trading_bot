@@ -185,3 +185,4 @@ sudo journalctl -u trading-bot.service | grep "SBER"
 
 
 
+

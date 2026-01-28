@@ -31,3 +31,4 @@ ExecStart=/bin/bash /home/botuser/trading_bot/trading_bot/scripts/watchdog_tradi
 
 
 
+

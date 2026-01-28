@@ -61,3 +61,4 @@ echo "  journalctl -u trading-bot-watchdog.service -n 50 --no-pager"
 
 
 
+
